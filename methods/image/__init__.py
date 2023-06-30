@@ -87,50 +87,38 @@ class ImageMethod(BaseMethod):
         assert isinstance(localization, str) and len(localization) > 0
         assert isinstance(key, str) and len(key) > 0
 
-        from . import predefined
-        from .predefined.keys import Key
-        from .predefined.localizations import Localization
+        from .predefined import available_keys, available_localizations
 
         resolution = f'{screen_width}x{screen_height}'
-        keys: dict[str, Key] = {
-            attr.lower(): v
-            for attr in dir(predefined)
-            if isinstance(v := getattr(predefined, attr), Key)
-            }
-        localizations: dict[str, Localization] = {
-            attr.lower(): v
-            for attr in dir(predefined)
-            if isinstance(v := getattr(predefined, attr), Localization)
-            }
 
-        loc = localizations.get(f'{localization.lower()}_{resolution}')
-        k = keys.get(f'{key.lower()}_{resolution}')
+        localizations = available_localizations.get(f'{localization.lower()}_{resolution}')
+        keys = available_keys.get(f'{key.lower()}_{resolution}')
 
-        if not loc and not k:
+        if not localizations and not keys:
             raise ValueError(
                 f'cannot find predefined localization {localization!r} '
                 f'and key {key!r} for screen resolution {resolution}'
                 )
 
-        if not loc:
+        if not localizations:
             raise ValueError(
                 f'cannot find predefined localization {localization!r} '
                 f'for screen resolution {resolution}'
                 )
 
-        if not k:
+        if not keys:
             raise ValueError(
                 f'cannot find predefined key {key!r} '
                 f'for screen resolution {resolution}'
                 )
 
         return cls(
-            bbox_x0=loc.bbox_x0,
-            bbox_y0=loc.bbox_y0,
-            interact_key=k.name,
-            x_averages=k.x_averages,
-            y_averages=k.y_averages,
-            tolerance=k.tolerance,
+            bbox_x0=localizations.bbox_x0,
+            bbox_y0=localizations.bbox_y0,
+            interact_key=keys.name,
+            x_averages=keys.x_averages,
+            y_averages=keys.y_averages,
+            tolerance=keys.tolerance,
             )
 
     def _start(self, /) -> Iterator[bool]:
