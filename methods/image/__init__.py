@@ -87,7 +87,7 @@ class ImageMethod(BaseMethod):
         assert isinstance(localization, str) and len(localization) > 0
         assert isinstance(key, str) and len(key) > 0
 
-        from .predefined import available_keys, available_localizations
+        from predefined.image import available_keys, available_localizations
 
         resolution = f'{screen_width}x{screen_height}'
 
