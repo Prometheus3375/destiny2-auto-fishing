@@ -21,21 +21,21 @@ def start_fishing(
     :param fish_limit: the maximum number of fish to catch. When reached, this function exits.
     :param do_initial_cast: whether to immediately cast fishing rod when this script starts.
     """
-    pag.FAILSAFE = False
-
-    print('Switch to Destiny 2 window. Ensure it is active while script is running')
-
-    # Put carriage return in the start to support PyCharm Run window output
-    for time in range(5, 0, -1):
-        print(f'\rStarting in {time}s', end='')
-        sleep(1)
-    print('\r', end='')
-
-    thread = Thread(target=_ask_input, daemon=True)
-    thread.start()
-
-    fish_count = 0
     try:
+        pag.FAILSAFE = False
+
+        print('Switch to Destiny 2 window. Ensure it is active while script is running')
+
+        # Put carriage return in the start to support PyCharm Run window output
+        for time in range(5, 0, -1):
+            print(f'\rStarting in {time}s', end='')
+            sleep(1)
+        print('\r', end='')
+
+        thread = Thread(target=_ask_input, daemon=True)
+        thread.start()
+
+        fish_count = 0
         for b in fishing_method.start(do_initial_cast):
             fish_count += b
             if fish_count >= fish_limit:
