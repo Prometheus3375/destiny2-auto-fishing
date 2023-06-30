@@ -5,15 +5,15 @@ from time import sleep
 from pyautogui import keyDown, keyUp
 
 
-# After hook there are ~100 frames in 30 FPS video before interact button appears again.
+# After catch there are ~100 frames in 30 FPS video before interact button appears again.
 # Interact button should be held for ~11 frames to continue fishing.
 
 
 class BaseMethod:
     __slots__ = (
         'interact_key',
-        'hook_duration',
-        'delay_after_hook',
+        'catch_duration',
+        'delay_after_catch',
         'cast_duration',
         'debug_file',
         )
@@ -22,17 +22,17 @@ class BaseMethod:
             self,
             /,
             interact_key: str = 'e',
-            hook_duration: float = 0.1,
-            delay_after_hook: float = 3.3,
+            catch_duration: float = 0.1,
+            delay_after_catch: float = 3.3,
             cast_duration: float = 0.5,
             debug_file_path: str = None,
             ):
         """
-        :param interact_key: a key that is used to hook fish and cast fishing rod.
+        :param interact_key: a key that is used to catch fish and cast fishing rod.
           Defaults to `e`.
-        :param hook_duration: time in seconds to hold interact key to hook fish.
+        :param catch_duration: time in seconds to hold interact key to catch fish.
           Defaults to 0.1.
-        :param delay_after_hook: time in seconds to wait after hook before casting fishing rod.
+        :param delay_after_catch: time in seconds to wait after catch before casting fishing rod.
           Defaults to 3.5.
         :param cast_duration: time in seconds to hold interact key to cast fishing rod.
           Defaults to 0.5.
@@ -41,14 +41,14 @@ class BaseMethod:
           Defaults to ``None`` which means no debug file.
         """
         assert isinstance(interact_key, str) and len(interact_key) > 0
-        assert isinstance(hook_duration, (int, float)) and hook_duration > 0
-        assert isinstance(delay_after_hook, (int, float)) and delay_after_hook > 0
+        assert isinstance(catch_duration, (int, float)) and catch_duration > 0
+        assert isinstance(delay_after_catch, (int, float)) and delay_after_catch > 0
         assert isinstance(cast_duration, (int, float)) and cast_duration > 0
         assert debug_file_path is None or (isinstance(debug_file_path, str) and debug_file_path)
 
         self.interact_key = interact_key
-        self.hook_duration = hook_duration
-        self.delay_after_hook = delay_after_hook
+        self.catch_duration = catch_duration
+        self.delay_after_catch = delay_after_catch
         self.cast_duration = cast_duration
         self.debug_file = debug_file_path
 
@@ -71,18 +71,18 @@ class BaseMethod:
         sleep(self.cast_duration)
         keyUp(self.interact_key)
 
-    def hook(self, /):
+    def catch(self, /):
         """
-        Issues a command to hook fish.
+        Issues a command to catch fish.
         """
         keyDown(self.interact_key)
-        sleep(self.hook_duration)
+        sleep(self.catch_duration)
         keyUp(self.interact_key)
 
     def _start(self, /):
         """
         Starts an infinite loop of fishing.
-        If fish can be successfully hooked, yields ``True``.
+        If fish can be successfully caught, yields ``True``.
         Yields ``False`` in any other case.
         """
         raise NotImplementedError
@@ -90,7 +90,7 @@ class BaseMethod:
     def start(self, do_cast: bool, /) -> Iterator[bool]:
         """
         Starts an infinite loop of fishing.
-        If fish is successfully hooked, yields ``True``.
+        If fish is successfully caught, yields ``True``.
         Yields ``False`` in any other case.
 
         :param do_cast: if ``True``, then casts fishing rod before entering the loop.
@@ -99,11 +99,11 @@ class BaseMethod:
             self.cast()
             yield False
 
-        for do_hook in self._start():
-            if do_hook:
-                self.hook()
+        for do_catch in self._start():
+            if do_catch:
+                self.catch()
                 yield True
-                sleep(self.delay_after_hook)
+                sleep(self.delay_after_catch)
                 yield False
                 self.cast()
 
