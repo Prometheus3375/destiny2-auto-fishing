@@ -10,6 +10,21 @@ from pyautogui import keyDown, keyUp
 
 
 class BaseMethod:
+    """
+    Base method for all fishing methods.
+
+    :param interact_key: a key that is used to catch fish and cast fishing rod.
+      Defaults to `e`.
+    :param catch_duration: time in seconds to hold interact key to catch fish.
+      Defaults to 0.1.
+    :param delay_after_catch: time in seconds to wait after catch before casting fishing rod.
+      Defaults to 3.5.
+    :param cast_duration: time in seconds to hold interact key to cast fishing rod.
+      Defaults to 0.5.
+    :param debug_file_path: a path to debug log file.
+      This file is used to write debug information.
+      Defaults to ``None`` which means no debug file.
+    """
     __slots__ = (
         'interact_key',
         'catch_duration',
@@ -27,19 +42,6 @@ class BaseMethod:
             cast_duration: float = 0.5,
             debug_file_path: str = None,
             ):
-        """
-        :param interact_key: a key that is used to catch fish and cast fishing rod.
-          Defaults to `e`.
-        :param catch_duration: time in seconds to hold interact key to catch fish.
-          Defaults to 0.1.
-        :param delay_after_catch: time in seconds to wait after catch before casting fishing rod.
-          Defaults to 3.5.
-        :param cast_duration: time in seconds to hold interact key to cast fishing rod.
-          Defaults to 0.5.
-        :param debug_file_path: a path to debug log file.
-          This file is used to write debug information.
-          Defaults to ``None`` which means no debug file.
-        """
         assert isinstance(interact_key, str) and len(interact_key) > 0
         assert isinstance(catch_duration, (int, float)) and catch_duration > 0
         assert isinstance(delay_after_catch, (int, float)) and delay_after_catch > 0
