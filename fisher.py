@@ -17,7 +17,7 @@ def start_fishing(
         do_initial_cast: bool,
         ):
     """
-    :param fishing_method: a method of fishing; used to cast a fishing rod and catch fish.
+    :param fishing_method: a method of fishing; used to cast fishing rod and catch fish.
     :param fish_limit: the maximum number of fish to catch. When reached, this function exits.
     :param do_initial_cast: whether to immediately cast fishing rod when this script starts.
     """

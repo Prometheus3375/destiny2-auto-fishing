@@ -79,6 +79,9 @@ class ImageMethod(BaseMethod):
             localization: str,
             key: str,
             ):
+        """
+        Creates :class`ImageMethod` from predefined settings.
+        """
         assert isinstance(screen_width, int) and screen_width > 0
         assert isinstance(screen_height, int) and screen_height > 0
         assert isinstance(localization, str) and len(localization) > 0
