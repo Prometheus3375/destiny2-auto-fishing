@@ -9,7 +9,7 @@ from pyautogui import keyDown, keyUp
 # Interact button should be held for ~11 frames to continue fishing.
 
 
-class BaseFishingMethod:
+class BaseMethod:
     __slots__ = (
         'interact_key',
         'hook_duration',
