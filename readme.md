@@ -1,3 +1,4 @@
+A tool for automatic fishing in Destiny 2.
 Inspired by [D2SemiAutoFisher](https://github.com/Chadhendrixs/D2SemiAutoFisher).
 
 # Installation
@@ -16,13 +17,15 @@ Inspired by [D2SemiAutoFisher](https://github.com/Chadhendrixs/D2SemiAutoFisher)
 
 # Usage
 
-## Running a script
+## Running the tool
 
 1. Open project directory in Explorer, type `powershell` in address line and press Enter.
 2. If there is a virtual environment (installation step 5), activate it.
 3. Run `python main.py 1920 1080 english E` to start the script
    for screen with resolution 1920x1080 and Destiny 2
    with English localization and `E` as interaction key.
+
+The script can be terminated by pressing Enter after it is fully started.
 
 For more information and parameters run `python main.py --help`.
 This command can be run without installed dependencies.
