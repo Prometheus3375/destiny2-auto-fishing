@@ -15,8 +15,6 @@ class BaseMethod:
 
     :param interact_key: a key that is used to catch fish and cast fishing rod.
       Defaults to `e`.
-    :param catch_duration: time in seconds to hold interact key to catch fish.
-      Defaults to 0.1.
     :param delay_after_catch: time in seconds to wait after catch before casting fishing rod.
       Defaults to 3.5.
     :param cast_duration: time in seconds to hold interact key to cast fishing rod.
@@ -27,7 +25,6 @@ class BaseMethod:
     """
     __slots__ = (
         'interact_key',
-        'catch_duration',
         'delay_after_catch',
         'cast_duration',
         'debug_file',
@@ -37,19 +34,16 @@ class BaseMethod:
             self,
             /,
             interact_key: str = 'e',
-            catch_duration: float = 0.1,
-            delay_after_catch: float = 3.3,
+            delay_after_catch: float = 3.34,
             cast_duration: float = 0.5,
             debug_file_path: str = None,
             ):
         assert isinstance(interact_key, str) and len(interact_key) > 0
-        assert isinstance(catch_duration, (int, float)) and catch_duration > 0
         assert isinstance(delay_after_catch, (int, float)) and delay_after_catch > 0
         assert isinstance(cast_duration, (int, float)) and cast_duration > 0
         assert debug_file_path is None or (isinstance(debug_file_path, str) and debug_file_path)
 
         self.interact_key = interact_key
-        self.catch_duration = catch_duration
         self.delay_after_catch = delay_after_catch
         self.cast_duration = cast_duration
         self.debug_file = debug_file_path
@@ -78,7 +72,6 @@ class BaseMethod:
         Issues a command to catch fish.
         """
         keyDown(self.interact_key)
-        sleep(self.catch_duration)
         keyUp(self.interact_key)
 
     def _start(self, /):
