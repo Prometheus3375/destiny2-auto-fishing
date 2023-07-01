@@ -44,7 +44,7 @@ class ImageMethod(BaseMethod):
             x_averages: list[int],
             y_averages: list[int],
             tolerance: int,
-            screen_grap_period: float = 0.05,
+            screen_grap_period: float = 0.04,
             **kwargs,
             ):
         super().__init__(**kwargs)
