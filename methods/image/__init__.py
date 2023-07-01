@@ -25,7 +25,7 @@ class ImageMethod(BaseMethod):
       for captured images to issue catch command.
     :param tolerance: how far average values can be from the desired ones.
     :param screen_grap_period: time in seconds how often screen should be captured.
-      Defaults to 0.05.
+      Defaults to 0.04.
     :param kwargs: refer to :class:`BaseMethod` for additional settings.
     """
     __slots__ = (

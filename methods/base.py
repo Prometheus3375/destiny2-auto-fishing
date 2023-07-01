@@ -16,7 +16,7 @@ class BaseMethod:
     :param interact_key: a key that is used to catch fish and cast fishing rod.
       Defaults to `e`.
     :param delay_after_catch: time in seconds to wait after catch before casting fishing rod.
-      Defaults to 3.5.
+      Defaults to 3.34.
     :param cast_duration: time in seconds to hold interact key to cast fishing rod.
       Defaults to 0.5.
     :param debug_file_path: a path to debug log file.
