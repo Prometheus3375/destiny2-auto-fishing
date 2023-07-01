@@ -58,7 +58,7 @@ PyAutoGUI supports limited amount of mouse buttons.
        where the first path is from step 5.1
        and the second one is for any other key image made at step 3.
     4. Each run will produce suggested tolerance value. Pick the highest one.
-       A value of 50 is usually sufficient.
+       A value of 60 is usually sufficient.
     5. Open `predefined/image/keys.py` in Notepad or any other text editor.
     6. Add this code with corresponded values placed. Angle braces (`<>`) must be omitted.
        ```
