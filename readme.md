@@ -43,31 +43,24 @@ PyAutoGUI supports limited amount of mouse buttons.
 3. Crop these frames at the same place to capture key image and save separately.
    I suggest to use [XnView MP](https://www.xnview.com/en/xnviewmp/) for this.
 4. Add your localization if it is not present.
-    1. Recall starting X and Y that were used for bounding box during cropping.
-    2. Open `predefined/image/localizations.py` in Notepad or any other text editor.
-    3. Add this code with corresponded values placed. Angle braces (`<>`) must be omitted.
-       ```
-       <localization>_<screen width>x<screen height> = Localization(bbox_x0=<X>, bbox_y0=<Y>)
-       ```
-       Usually localizations share `bbox_y0` withing the same screen resolution.
+    - Recall starting X and Y that were used for bounding box during cropping.
+    - Open `predefined/image/localizations.py` in Notepad or any other text editor.
+    - Add this code with corresponded values placed. Angle braces (`<>`) must be omitted.
+      ```
+      <localization>_<screen width>x<screen height> = Localization(bbox_x0=<X>, bbox_y0=<Y>)
+      ```
+      Usually localizations share `bbox_y0` withing the same screen resolution.
 5. Add your key if it is not present.
-    1. Run `python -m methods.image "path\to\image"` where `"path\to\image"`
-       is path to the clearest key image.
-    2. You will see `x_averages` and `y_averages` in the output.
-    3. Run `python -m methods.image "path\to\image" "path\to\other\image"`
-       where the first path is from step 5.1
-       and the second one is for any other key image made at step 3.
-    4. Each run will produce suggested tolerance value. Pick the highest one.
-       A value of 60 is usually sufficient.
-    5. Open `predefined/image/keys.py` in Notepad or any other text editor.
-    6. Add this code with corresponded values placed. Angle braces (`<>`) must be omitted.
-       ```
-       <key name>_<screen width>x<screen height> = Key(
-           '<key name in lower case>',
-           x_averages=<x_averages>,
-           y_averages=<y_averages>,
-           tolerance=<tolerance>,
-           )
-       ```
+    - Run `python -m methods.image "path/to/clearest/key/image" -d "path/to/directory/with/other/images"`
+      where the first path is the path to the clearest key image and
+      the second one is the path to the directory with all key images you created at step 3.
+        - Run `python -m methods.image --help` to view available options.
+    - You will see several `tolerance` values in the output. Pick the most appropriate one.
+      A value of 50 is usually sufficient.
+    - Open `predefined/image/keys.py` in Notepad or any other text editor.
+    - Add this code with corresponded values placed. Angle braces (`<>`) must be omitted.
+      ```
+      <key name>_<screen width>x<screen height> = Key('key name in lower case', '<path to clearest key image>', tolerance=<tolerance>)
+      ```
 6. Run `python main.py --help`. If you see your localization and key in the list of supported,
    then you have done everything correctly.
