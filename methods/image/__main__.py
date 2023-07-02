@@ -1,48 +1,50 @@
+import os
 from argparse import ArgumentParser
-
-from PIL.Image import open as open_image
 
 from methods.image.functions import *
 
 if __name__ == '__main__':
     def main():
         parser = ArgumentParser(
-            description='Takes a path to an image file, '
-                        'converts it to grayscale and evaluates '
-                        'average color for every row and column.\n'
-                        'If two paths are given, then converts both images to grayscale '
-                        'and evaluates absolute difference between '
-                        'their average values for every row and colum '
-                        'and minimum required tolerance',
+            description='Evaluates matrix difference between the main image and other ones '
+                        'and proposes minimum required tolerance value. Supports PNG format only.',
             )
 
-        parser.add_argument('image_file_path', help='a path to an image file')
+        parser.add_argument('main_image_file_path', help='path to the main image')
         parser.add_argument(
-            'second_image_file_path',
+            'image_file_paths',
+            nargs='*',
+            help='space separated paths to image files',
+            )
+
+        parser.add_argument(
+            '--dir',
+            '-d',
             nargs='?',
             default=None,
-            help='a path to an image file',
+            help='path to the directory with images',
             )
 
         args = parser.parse_args()
 
-        if args.second_image_file_path is None:
-            with open_image(args.image_file_path) as image:
-                avg_x, avg_y = calculate_averages(image.convert('L'))
-                x_averages = list(avg_x)
-                y_averages = list(avg_y)
-                print(f'{x_averages=!r}')
-                print(f'{y_averages=!r}')
-        else:
-            with (open_image(args.image_file_path) as im1,
-                  open_image(args.second_image_file_path) as im2):
-                diff_x, diff_y = calculate_difference(im1, im2)
-                diff_x = list(diff_x)
-                diff_y = list(diff_y)
-                tolerance = max(*diff_x, *diff_y) + 1
-                print(f'{diff_x=!r}')
-                print(f'{diff_y=!r}')
+        with open_image(args.main_image_file_path) as im:
+            main_matrix = image_matrix(im)
+
+        other_images: list[str] = args.image_file_paths
+        if args.dir:
+            other_images.extend(
+                os.path.join(args.dir, file)
+                for file in os.listdir(args.dir)
+                if file.endswith('.png')
+                )
+
+        for path in other_images:
+            with open_image(path) as im:
+                diff = difference_matrix_image(main_matrix, im)
+                tolerance = diff.max() + 1
+                print(f'Tolerance for {path!r}:')
                 print(f'{tolerance=!r}')
+                print('-' * 20)
 
 
     main()
