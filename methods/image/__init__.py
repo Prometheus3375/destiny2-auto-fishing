@@ -2,9 +2,8 @@ from collections.abc import Iterator
 from time import sleep
 
 from PIL import ImageGrab
-from numpy import asarray, ndarray
 
-from .functions import calculate_averages
+from .functions import *
 from ..base import BaseMethod
 
 
@@ -19,30 +18,20 @@ class ImageMethod(BaseMethod):
 
     :param bbox_x0: screen X coordinate where capturing bounding box starts.
     :param bbox_y0: screen Y coordinate where capturing bounding box starts.
-    :param x_averages: desired average values over X axis
-      for captured images to issue catch command.
-    :param y_averages: desired average values over Y
-      for captured images to issue catch command.
+    :param key_image_path: path to a sample image in PGN format of the interaction key.
     :param tolerance: how far average values can be from the desired ones.
     :param screen_grap_period: time in seconds how often screen should be captured.
       Defaults to 0.04.
     :param kwargs: refer to :class:`BaseMethod` for additional settings.
     """
-    __slots__ = (
-        'x_averages',
-        'y_averages',
-        'tolerance',
-        'bbox',
-        'screen_grap_period',
-        )
+    __slots__ = 'key_matrix', 'tolerance', 'bbox', 'screen_grap_period'
 
     def __init__(
             self,
             /,
             bbox_x0: int,
             bbox_y0: int,
-            x_averages: list[int],
-            y_averages: list[int],
+            key_image_path: str,
             tolerance: int,
             screen_grap_period: float = 0.04,
             **kwargs,
@@ -51,23 +40,16 @@ class ImageMethod(BaseMethod):
 
         assert isinstance(bbox_x0, int) and bbox_x0 >= 0
         assert isinstance(bbox_y0, int) and bbox_y0 >= 0
-        assert isinstance(x_averages, list)
-        assert isinstance(y_averages, list)
-        bbox_x_length = len(x_averages)
-        bbox_y_length = len(y_averages)
-        assert bbox_x_length > 0
-        assert bbox_y_length > 0
-        assert all(isinstance(v, int) and 0 <= v <= 255 for v in x_averages)
-        assert all(isinstance(v, int) and 0 <= v <= 255 for v in y_averages)
+        assert isinstance(key_image_path, str) and len(key_image_path) > 0
         assert isinstance(tolerance, int) and tolerance >= 1
-
-        self.x_averages = asarray(x_averages, int)
-        self.y_averages = asarray(y_averages, int)
-        self.tolerance = tolerance
-        self.bbox = (bbox_x0, bbox_y0, bbox_x0 + bbox_x_length, bbox_y0 + bbox_y_length)
-
         assert isinstance(screen_grap_period, (int, float)) and screen_grap_period > 0
 
+        with open_image(key_image_path) as im:
+            self.key_matrix = image_matrix(im)
+            x, y = self.key_matrix.shape
+
+        self.tolerance = tolerance
+        self.bbox = (bbox_x0, bbox_y0, bbox_x0 + x, bbox_y0 + y)
         self.screen_grap_period = screen_grap_period
 
     @classmethod
@@ -91,49 +73,41 @@ class ImageMethod(BaseMethod):
 
         resolution = f'{screen_width}x{screen_height}'
 
-        localizations = available_localizations.get(f'{localization.lower()}_{resolution}')
-        keys = available_keys.get(f'{key.lower()}_{resolution}')
+        loc = available_localizations.get(f'{localization.lower()}_{resolution}')
+        k = available_keys.get(f'{key.lower()}_{resolution}')
 
-        if not localizations and not keys:
+        if not loc and not k:
             raise ValueError(
                 f'cannot find predefined localization {localization!r} '
                 f'and key {key!r} for screen resolution {resolution}'
                 )
 
-        if not localizations:
+        if not loc:
             raise ValueError(
                 f'cannot find predefined localization {localization!r} '
                 f'for screen resolution {resolution}'
                 )
 
-        if not keys:
+        if not k:
             raise ValueError(
                 f'cannot find predefined key {key!r} '
                 f'for screen resolution {resolution}'
                 )
 
         return cls(
-            bbox_x0=localizations.bbox_x0,
-            bbox_y0=localizations.bbox_y0,
-            interact_key=keys.name,
-            x_averages=keys.x_averages,
-            y_averages=keys.y_averages,
-            tolerance=keys.tolerance,
+            bbox_x0=loc.bbox_x0,
+            bbox_y0=loc.bbox_y0,
+            interact_key=k.name,
+            key_image_path=k.image_path,
+            tolerance=k.tolerance,
             )
 
     def _start(self, /) -> Iterator[bool]:
         while True:
-            image = ImageGrab.grab(self.bbox)
-            avg_x, avg_y = calculate_averages(image)
-            diff_x: ndarray = abs(avg_x - self.x_averages)
-            diff_y: ndarray = abs(avg_y - self.y_averages)
-            do_catch = (diff_x <= self.tolerance).all() and (diff_y <= self.tolerance).all()
+            diff = difference_matrix_image(self.key_matrix, ImageGrab.grab(self.bbox))
+            do_catch: bool = (diff <= self.tolerance).all()
 
-            self._debug(
-                f'X difference {diff_x!r}',
-                f'Y difference {diff_y!r}',
-                f'Do catch: {do_catch}',
-                )
+            self._debug(f'Difference: {diff!r}', f'Do catch: {do_catch}')
 
             yield do_catch
             sleep(self.screen_grap_period)
