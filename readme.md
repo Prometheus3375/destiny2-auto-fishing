@@ -63,7 +63,7 @@ PyAutoGUI supports limited amount of mouse buttons.
     - Open `predefined/image/keys.py` in Notepad or any other text editor.
     - Add this code with corresponded values placed. Angle braces (`<>`) must be omitted.
       ```
-      <key name>_<screen width>x<screen height> = Key('key name in lower case', '<path to clearest key image>', tolerance=<tolerance>)
+      <key name>_<screen width>x<screen height> = Key('<key name in lower case>', '<path to clearest key image>', tolerance=<tolerance>)
       ```
 6. Run `python main.py --help`. If you see your localization and key in the list of supported,
    then you have done everything correctly.
