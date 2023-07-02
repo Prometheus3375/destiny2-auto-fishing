@@ -27,6 +27,9 @@ Inspired by [D2SemiAutoFisher](https://github.com/Chadhendrixs/D2SemiAutoFisher)
 
 The script can be terminated by pressing Enter after it is fully started.
 
+**IMPORTANT**: you must use English (USA) keyboard layout while script is running.
+Otherwise, key presses sent by the script will not work.
+
 For more information and parameters run `python main.py --help`.
 This command can be run without installed dependencies.
 
