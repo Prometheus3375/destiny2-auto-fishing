@@ -8,5 +8,5 @@ class Localization(NamedTuple):
 
 del NamedTuple
 
-russian_1920x1080 = Localization(bbox_x0=857, bbox_y0=727)
-english_1920x1080 = Localization(bbox_x0=882, bbox_y0=727)
+russian_1920x1080 = Localization(bbox_x0=859, bbox_y0=729)
+english_1920x1080 = Localization(bbox_x0=884, bbox_y0=729)
