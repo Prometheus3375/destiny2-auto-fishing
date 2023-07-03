@@ -60,6 +60,7 @@ class ImageMethod(BaseMethod):
             screen_height: int,
             localization: str,
             key: str,
+            **kwargs,
             ):
         """
         Creates :class`ImageMethod` from predefined settings.
@@ -100,6 +101,7 @@ class ImageMethod(BaseMethod):
             interact_key=k.name,
             key_image_path=k.image_path,
             tolerance=k.tolerance,
+            **kwargs,
             )
 
     def _start(self, /) -> Iterator[bool]:
