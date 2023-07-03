@@ -7,7 +7,7 @@ Inspired by [D2SemiAutoFisher](https://github.com/Chadhendrixs/D2SemiAutoFisher)
    or higher version of Python 3.11.
 2. [Download](https://github.com/Prometheus3375/destiny2-auto-fishing/archive/refs/heads/main.zip)
    ZIP archive of the project.
-3. Extract this zip in any empty directory.
+3. Extract this archive to any empty directory.
 4. Open this directory in Explorer, type `powershell` in address line and press Enter.
 5. (Optional) Initialize and activate virtual environment.
     - Run `python -m venv .venv` to initialize.
@@ -21,14 +21,14 @@ Inspired by [D2SemiAutoFisher](https://github.com/Chadhendrixs/D2SemiAutoFisher)
 
 1. Open project directory in Explorer, type `powershell` in address line and press Enter.
 2. If there is a virtual environment (installation step 5), activate it.
-3. Run `python main.py 1920 1080 english E` to start the script
+3. Switch you keyboard layout to English (USA).
+4. Run `python main.py 1920 1080 english E` to start the script
    for screen with resolution 1920x1080 and Destiny 2
    with English localization and `E` as interaction key.
 
 The script can be terminated by pressing Enter after it is fully started.
-
-**IMPORTANT**: you must use English (USA) keyboard layout while script is running.
-Otherwise, key presses sent by the script will not work.
+While script is running you can freely change keyboard layout,
+but you are forced to use English (USA) before its start.
 
 For more information and parameters run `python main.py --help`.
 This command can be run without installed dependencies.
@@ -37,7 +37,7 @@ This command can be run without installed dependencies.
 
 **Note**: mouse buttons cannot be added currently, but this can be changed via request in
 [issue tracker](https://github.com/Prometheus3375/destiny2-auto-fishing/issues).
-PyAutoGUI supports limited amount of mouse buttons.
+Even with added functionality, PyAutoGUI supports limited amount of mouse buttons.
 
 1. Record a video where you catch a fish. There should be at least 2 seconds before catch and
    2 seconds after.
