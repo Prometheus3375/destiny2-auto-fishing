@@ -21,7 +21,7 @@ class ImageMethod(BaseMethod):
     :param key_image_path: path to a sample image in PGN format of the interaction key.
     :param tolerance: how far average values can be from the desired ones.
     :param screen_grap_period: time in seconds how often screen should be captured.
-      Defaults to 0.04.
+      Defaults to 1/30.
     :param kwargs: refer to :class:`BaseMethod` for additional settings.
     """
     __slots__ = 'key_matrix', 'tolerance', 'bbox', 'screen_grap_period'
@@ -33,7 +33,7 @@ class ImageMethod(BaseMethod):
             bbox_y0: int,
             key_image_path: str,
             tolerance: int,
-            screen_grap_period: float = 0.04,
+            screen_grap_period: float = 1 / 30,
             **kwargs,
             ):
         super().__init__(**kwargs)
@@ -106,6 +106,7 @@ class ImageMethod(BaseMethod):
 
     def _start(self, /) -> Iterator[bool]:
         while True:
+            # Image grab takes up to 0.04 seconds on 1920x1080
             diff = difference_matrix_image(self.key_matrix, ImageGrab.grab(self.bbox))
             do_catch: bool = (diff <= self.tolerance).all()
 
