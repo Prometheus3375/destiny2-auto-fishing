@@ -42,7 +42,7 @@ class ImageMethod(BaseMethod):
         assert isinstance(bbox_y0, int) and bbox_y0 >= 0
         assert isinstance(key_image_path, str) and len(key_image_path) > 0
         assert isinstance(tolerance, int) and tolerance >= 1
-        assert isinstance(screen_grap_period, (int, float)) and screen_grap_period > 0
+        assert isinstance(screen_grap_period, (int, float)) and screen_grap_period >= 0
 
         with open_image(key_image_path) as im:
             self.key_matrix = image_matrix(im)
