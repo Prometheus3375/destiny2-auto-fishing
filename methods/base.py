@@ -54,7 +54,8 @@ class BaseMethod:
         Every string is prepended with the current datetime and appended with line feed.
         """
         if self.debug_file:
-            dt = datetime.now().replace(microsecond=0)
+            dt = datetime.now()
+            dt = dt.replace(microsecond=round(dt.microsecond, -3))
             with open(self.debug_file, 'a', encoding='utf-8') as f:
                 for line in lines:
                     f.write(f'{dt} {line}\n')
