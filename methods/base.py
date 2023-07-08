@@ -2,7 +2,7 @@ from collections.abc import Iterator
 from datetime import datetime
 from time import sleep
 
-from pyautogui import keyDown, keyUp
+from .controls import *
 
 
 # After catch there are ~100 frames in 30 FPS video before interact button appears again.
@@ -15,6 +15,8 @@ class BaseMethod:
 
     :param interact_key: a key that is used to catch fish and cast fishing rod.
       Defaults to `e`.
+    :param is_mouse_button: should be ``True`` if ``interact_key`` is a mouse button.
+      Defaults to ``False``.
     :param delay_after_catch: time in seconds to wait after catch before casting fishing rod.
       Defaults to 3.34.
     :param cast_duration: time in seconds to hold interact key to cast fishing rod.
@@ -24,7 +26,9 @@ class BaseMethod:
       Defaults to ``None`` which means no debug file.
     """
     __slots__ = (
-        'interact_key',
+        '_press',
+        '_hold',
+        '_interact_key',
         'delay_after_catch',
         'cast_duration',
         'debug_file',
@@ -36,14 +40,19 @@ class BaseMethod:
             interact_key: str = 'e',
             delay_after_catch: float = 3.34,
             cast_duration: float = 0.5,
+            is_mouse_button: bool = False,
             debug_file_path: str = None,
             ):
         assert isinstance(interact_key, str) and len(interact_key) > 0
+        assert isinstance(is_mouse_button, bool)
         assert isinstance(delay_after_catch, (int, float)) and delay_after_catch > 0
         assert isinstance(cast_duration, (int, float)) and cast_duration > 0
         assert debug_file_path is None or (isinstance(debug_file_path, str) and debug_file_path)
 
-        self.interact_key = interact_key
+        self._interact_key = interact_key
+        self._press = press_mouse if is_mouse_button else press_key
+        self._hold = hold_mouse if is_mouse_button else hold_key
+
         self.delay_after_catch = delay_after_catch
         self.cast_duration = cast_duration
         self.debug_file = debug_file_path
@@ -64,16 +73,13 @@ class BaseMethod:
         """
         Issues a command to cast fishing rod.
         """
-        keyDown(self.interact_key)
-        sleep(self.cast_duration)
-        keyUp(self.interact_key)
+        self._hold(self._interact_key, self.cast_duration)
 
     def catch(self, /):
         """
         Issues a command to catch fish.
         """
-        keyDown(self.interact_key)
-        keyUp(self.interact_key)
+        self._press(self._interact_key)
 
     def _start(self, /):
         """

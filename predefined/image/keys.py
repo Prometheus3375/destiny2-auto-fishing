@@ -8,6 +8,7 @@ class Key(NamedTuple):
     name: str
     image_path: str
     tolerance: int
+    is_mouse_button: bool = False
 
 
 del NamedTuple, path

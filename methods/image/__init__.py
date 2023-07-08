@@ -99,6 +99,7 @@ class ImageMethod(BaseMethod):
             bbox_x0=loc.bbox_x0,
             bbox_y0=loc.bbox_y0,
             interact_key=k.name,
+            is_mouse_button=k.is_mouse_button,
             key_image_path=k.image_path,
             tolerance=k.tolerance,
             **kwargs,
