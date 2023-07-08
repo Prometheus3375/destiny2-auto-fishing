@@ -35,9 +35,9 @@ This command can be run without installed dependencies.
 
 ## Adding unsupported resolutions, localizations and keys
 
-**Note**: mouse buttons cannot be added currently, but this can be changed via request in
-[issue tracker](https://github.com/Prometheus3375/destiny2-auto-fishing/issues).
-Even with added functionality, PyAutoGUI supports limited amount of mouse buttons.
+**Note**: it is possible to add mouse buttons, but directly supported buttons are
+`left`, `middle` and `right`. For other buttons there is a workaround described
+in the section below.
 
 1. Record a video where you catch a fish. There should be at least 2 seconds before catch and
    2 seconds after.
@@ -65,5 +65,31 @@ Even with added functionality, PyAutoGUI supports limited amount of mouse button
       ```
       <key name>_<screen width>x<screen height> = Key('<key name in lower case>', '<path to clearest key image>', tolerance=<tolerance>)
       ```
+      If the key is a mouse button, use this code.
+      ```
+      <key name>_<screen width>x<screen height> = Key('<key name in lower case>', '<path to clearest key image>', tolerance=<tolerance>, is_mouse_button=True)
+      ```
 6. Run `python main.py --help`. If you see your localization and key in the list of supported,
    then you have done everything correctly.
+
+If you find difficult to add your own resolution, localization or key, then create an issue in
+[issue tracker](https://github.com/Prometheus3375/destiny2-auto-fishing/issues)
+with attached video or screenshots from steps 1 and 2.
+
+### Workaround for unsupported mouse buttons
+
+- Complete all steps from the guide above.
+- In Destiny 2 settings set an *alternative button* for interaction command
+  to any keyboard letter.
+- Open `predefined/image/keys.py` in Notepad or any other text editor and
+  locate previously added mouse button.
+- Edit its code to the following. Angle braces (`<>`) must be omitted.
+  ```
+  <mouse button name>_<keyboard letter>_<screen width>x<screen height> = Key('<keyboard letter in lower case>', '<path to clearest mouse button image>', tolerance=<tolerance>)
+  ```
+
+Since mouse button is the primary way to interact,
+the game shows its image when interaction is available.
+Thus, its image must be used by the script. But this button cannot be pressed by the script
+because of library limitations; therefore, you need to set an alternative key in
+game settings and specify this key instead of mouse button. 
