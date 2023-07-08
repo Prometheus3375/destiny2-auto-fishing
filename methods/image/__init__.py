@@ -1,7 +1,8 @@
 from collections.abc import Iterator
 from time import sleep
+from timeit import default_timer
 
-from PIL import ImageGrab
+from PIL.ImageGrab import grab
 
 from .functions import *
 from ..base import BaseMethod
@@ -20,7 +21,11 @@ class ImageMethod(BaseMethod):
     :param bbox_y0: screen Y coordinate where capturing bounding box starts.
     :param key_image_path: path to a sample image in PGN format of the interaction key.
     :param tolerance: how far average values can be from the desired ones.
-    :param screen_grap_period: time in seconds how often screen should be captured.
+    :param screen_grab_period: time in seconds how often screen should be captured.
+      **Note**: screen capturing take much time and
+      this time is different for different screen sizes.
+      For example, for screen 1920x1080 it takes ~0.032 seconds to take a screenshot.
+      Thus, the actual period can be higher than this value.
       Defaults to 1/30.
     :param kwargs: refer to :class:`BaseMethod` for additional settings.
     """
@@ -33,7 +38,7 @@ class ImageMethod(BaseMethod):
             bbox_y0: int,
             key_image_path: str,
             tolerance: int,
-            screen_grap_period: float = 1 / 30,
+            screen_grab_period: float = 1 / 30,
             **kwargs,
             ):
         super().__init__(**kwargs)
@@ -42,7 +47,7 @@ class ImageMethod(BaseMethod):
         assert isinstance(bbox_y0, int) and bbox_y0 >= 0
         assert isinstance(key_image_path, str) and len(key_image_path) > 0
         assert isinstance(tolerance, int) and tolerance >= 1
-        assert isinstance(screen_grap_period, (int, float)) and screen_grap_period >= 0
+        assert isinstance(screen_grab_period, (int, float)) and screen_grab_period >= 0
 
         with open_image(key_image_path) as im:
             self.key_matrix = image_matrix(im)
@@ -50,7 +55,7 @@ class ImageMethod(BaseMethod):
 
         self.tolerance = tolerance
         self.bbox = (bbox_x0, bbox_y0, bbox_x0 + x, bbox_y0 + y)
-        self.screen_grap_period = screen_grap_period
+        self.screen_grap_period = screen_grab_period
 
     @classmethod
     def from_predefined(
@@ -107,14 +112,15 @@ class ImageMethod(BaseMethod):
 
     def _start(self, /) -> Iterator[bool]:
         while True:
-            # Image grab takes up to 0.04 seconds on 1920x1080
-            diff = difference_matrix_image(self.key_matrix, ImageGrab.grab(self.bbox))
+            secs = default_timer()
+            diff = difference_matrix_image(self.key_matrix, grab(self.bbox))
             do_catch: bool = (diff <= self.tolerance).all()
 
             self._debug(f'Difference: {diff!r}', f'Do catch: {do_catch}')
 
             yield do_catch
-            sleep(self.screen_grap_period)
+            delay = secs + self.screen_grap_period - default_timer()
+            if delay > 0: sleep(delay)
 
 
 __all__ = 'ImageMethod',
