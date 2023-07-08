@@ -14,7 +14,7 @@ class BaseMethod:
     Base method for all fishing methods.
 
     :param interact_key: a key that is used to catch fish and cast fishing rod.
-      Defaults to `e`.
+      Defaults to ``e``.
     :param is_mouse_button: should be ``True`` if ``interact_key`` is a mouse button.
       Defaults to ``False``.
     :param delay_after_catch: time in seconds to wait after catch before casting fishing rod.

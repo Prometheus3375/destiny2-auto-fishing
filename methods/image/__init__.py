@@ -19,7 +19,7 @@ class ImageMethod(BaseMethod):
 
     :param bbox_x0: screen X coordinate where capturing bounding box starts.
     :param bbox_y0: screen Y coordinate where capturing bounding box starts.
-    :param key_image_path: path to a sample image in PGN format of the interaction key.
+    :param key_image_path: path to a sample image in PNG format of the interaction key.
     :param tolerance: how far average values can be from the desired ones.
     :param screen_grab_period: time in seconds how often screen should be captured.
       **Note**: screen capturing take much time and
