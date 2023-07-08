@@ -18,7 +18,7 @@ class BaseMethod:
     :param is_mouse_button: should be ``True`` if ``interact_key`` is a mouse button.
       Defaults to ``False``.
     :param delay_after_catch: time in seconds to wait after catch before casting fishing rod.
-      Defaults to 3.34.
+      Defaults to 10/3.
     :param cast_duration: time in seconds to hold interact key to cast fishing rod.
       Defaults to 0.5.
     :param debug_file_path: a path to debug log file.
@@ -38,9 +38,9 @@ class BaseMethod:
             self,
             /,
             interact_key: str = 'e',
-            delay_after_catch: float = 3.34,
             cast_duration: float = 0.5,
             is_mouse_button: bool = False,
+            delay_after_catch: float = 10 / 3,
             debug_file_path: str = None,
             ):
         assert isinstance(interact_key, str) and len(interact_key) > 0
