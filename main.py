@@ -10,7 +10,7 @@ if __name__ == '__main__':
     def group_by_name(available: Iterable[str], /) -> Iterable[str]:
         data = defaultdict(set)
         for name_resolution in available:
-            name, _, resolution = name_resolution.partition('_')
+            name, _, resolution = name_resolution.rpartition('_')
             data[name].add(resolution)
 
         for name, resolutions in data.items():
