@@ -43,7 +43,7 @@ class BaseMethod:
             cast_duration: float = 0.6,
             debug_file_path: str = None,
             ):
-        assert isinstance(interact_key, str) and len(interact_key) > 0
+        assert isinstance(interact_key, str) and interact_key
         assert isinstance(is_mouse_button, bool)
         assert isinstance(delay_after_catch, (int, float)) and delay_after_catch > 0
         assert isinstance(cast_duration, (int, float)) and cast_duration > 0

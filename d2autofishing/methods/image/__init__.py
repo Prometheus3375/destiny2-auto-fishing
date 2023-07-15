@@ -22,7 +22,7 @@ class ImageMethod(BaseMethod):
     :param bbox_x0: screen X coordinate where capturing bounding box starts.
     :param bbox_y0: screen Y coordinate where capturing bounding box starts.
     :param key_image_path: path to a sample image in PNG format of the interaction key.
-    :param tolerance: how far average values can be from the desired ones.
+    :param tolerance: how far pixel values can be from the desired ones.
     :param screen_grab_period: time in seconds how often screen should be captured.
       **Note**: screen capturing take much time and
       this time is different for different screen sizes.
@@ -51,8 +51,8 @@ class ImageMethod(BaseMethod):
 
         assert isinstance(bbox_x0, int) and bbox_x0 >= 0
         assert isinstance(bbox_y0, int) and bbox_y0 >= 0
-        assert isinstance(key_image_path, str) and len(key_image_path) > 0
-        assert isinstance(tolerance, int) and tolerance >= 1
+        assert isinstance(key_image_path, str) and key_image_path
+        assert isinstance(tolerance, int) and tolerance >= 0
         assert isinstance(screen_grab_period, (int, float)) and screen_grab_period >= 0
         assert image_debug_path is None or (isinstance(image_debug_path, str) and image_debug_path)
 
