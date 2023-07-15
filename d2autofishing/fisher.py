@@ -27,11 +27,9 @@ def start_fishing(
 
         print('Switch to Destiny 2 window. Ensure it is active while script is running')
 
-        # Put carriage return in the start to support PyCharm Run window output
         for time in range(5, 0, -1):
-            print(f'\rStarting in {time}s', end='')
+            print(f'Starting in {time}s', end='\r')
             sleep(1)
-        print('\r', end='')
 
         thread = Thread(target=_ask_input, daemon=True)
         thread.start()
