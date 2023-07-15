@@ -40,8 +40,7 @@ if __name__ == '__main__':
 
         for path in other_images:
             with open_image(path) as im:
-                diff = difference_matrix_image(main_matrix, im)
-                tolerance = diff.max() + 1
+                tolerance = difference_matrix_image(main_matrix, im)
                 print(f'Tolerance for {path!r}:')
                 print(f'{tolerance=!r}')
                 print('-' * 20)

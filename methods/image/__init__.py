@@ -113,8 +113,9 @@ class ImageMethod(BaseMethod):
     def _start(self, /) -> Iterator[bool]:
         while True:
             secs = default_timer()
-            diff = difference_matrix_image(self.key_matrix, grab(self.bbox))
-            do_catch: bool = (diff <= self.tolerance).all()
+            img = grab(self.bbox)
+            diff = difference_matrix_image(self.key_matrix, img)
+            do_catch = diff <= self.tolerance
 
             self._debug(f'Difference: {diff!r}', f'Do catch: {do_catch}')
 

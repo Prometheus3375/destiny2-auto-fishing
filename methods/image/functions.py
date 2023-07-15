@@ -16,20 +16,24 @@ def image_matrix(image: Image, /) -> ndarray:
     return asarray(image.convert('L'), int)
 
 
-def difference_images(im1: Image, im2: Image, /) -> ndarray:
+def difference_images(im1: Image, im2: Image, /) -> int:
     """
-    Takes two images, converts them to grayscale and returns absolute difference between
-    their matrices. **Note**: matrices must have identical shape.
+    Takes two images, converts them to grayscale and then evaluates
+    absolute difference between matrices and returns maximum value.
+
+    **Note**: matrices must have identical shape.
     """
-    return abs(image_matrix(im1) - image_matrix(im2))
+    return abs(image_matrix(im1) - image_matrix(im2)).max()
 
 
-def difference_matrix_image(matrix: ndarray, im2: Image, /) -> ndarray:
+def difference_matrix_image(matrix: ndarray, im2: Image, /) -> int:
     """
     Takes a matrix and an image, converts the image to grayscale and evaluates its matrix.
-    Returns absolute difference between matrices. **Note**: matrices must have identical shape.
+    Then evaluates absolute difference between matrices and returns maximum value.
+
+    **Note**: matrices must have identical shape.
     """
-    return abs(matrix - image_matrix(im2))
+    return abs(matrix - image_matrix(im2)).max()
 
 
 __all__ = 'open_image', 'image_matrix', 'difference_images', 'difference_matrix_image'
