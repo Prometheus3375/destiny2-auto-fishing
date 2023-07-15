@@ -1,8 +1,8 @@
 from collections.abc import Iterator
-from datetime import datetime
 from time import sleep
 
 from ..controls import *
+from ..functions import current_datetime_ms_str
 
 
 # After catch there are ~100 frames in 30 FPS video before interact button appears again.
@@ -63,11 +63,8 @@ class BaseMethod:
         The result is prepended with the current datetime and appended with line feed.
         """
         if self.debug_file:
-            dt = datetime.now()
-            ms = round(dt.microsecond, -3)
-            dt = dt.replace(microsecond=0)
             with open(self.debug_file, 'a', encoding='utf-8') as f:
-                f.write(f'{dt}.{ms} {line.format(*args, *kwargs)}\n')
+                f.write(f'{current_datetime_ms_str()}    {line.format(*args, *kwargs)}\n')
 
     def cast(self, /):
         """
