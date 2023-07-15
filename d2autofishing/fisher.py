@@ -21,6 +21,7 @@ def start_fishing(
     :param fish_limit: the maximum number of fish to catch. When reached, this function exits.
     :param do_initial_cast: whether to immediately cast fishing rod when this script starts.
     """
+    fish_count = 0
     try:
         pag.FAILSAFE = False
 
@@ -35,7 +36,6 @@ def start_fishing(
         thread = Thread(target=_ask_input, daemon=True)
         thread.start()
 
-        fish_count = 0
         for b in fishing_method.start(do_initial_cast):
             fish_count += b
             if fish_count >= fish_limit:
@@ -47,7 +47,7 @@ def start_fishing(
     except KeyboardInterrupt:
         print('Ctrl+C is pressed')
 
-    print('Script is terminated')
+    print(f'Script is terminated. {fish_count} fish caught')
 
 
 __all__ = 'start_fishing',
