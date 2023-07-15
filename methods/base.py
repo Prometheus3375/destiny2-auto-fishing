@@ -57,17 +57,17 @@ class BaseMethod:
         self.cast_duration = cast_duration
         self.debug_file = debug_file_path
 
-    def _debug(self, /, *lines: str):
+    def _debug(self, line: str, /, *args, **kwargs):
         """
-        If there is a file for debug log, opens it and appends passed strings.
-        Every string is prepended with the current datetime and appended with line feed.
+        If there is a file for debug log, opens it and appends passed string with format arguments.
+        The result is prepended with the current datetime and appended with line feed.
         """
         if self.debug_file:
             dt = datetime.now()
-            dt = dt.replace(microsecond=round(dt.microsecond, -3))
+            ms = round(dt.microsecond, -3)
+            dt = dt.replace(microsecond=0)
             with open(self.debug_file, 'a', encoding='utf-8') as f:
-                for line in lines:
-                    f.write(f'{dt} {line}\n')
+                f.write(f'{dt}.{ms} {line.format(*args, *kwargs)}\n')
 
     def cast(self, /):
         """
