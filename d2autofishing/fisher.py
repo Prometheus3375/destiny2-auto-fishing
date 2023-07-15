@@ -3,7 +3,7 @@ from time import sleep
 
 import pyautogui as pag
 
-from methods.base import BaseMethod
+from .methods.base import BaseMethod
 
 
 def _ask_input():

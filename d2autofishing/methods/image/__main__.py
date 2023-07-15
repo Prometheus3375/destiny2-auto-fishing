@@ -1,7 +1,7 @@
 import os
 from argparse import ArgumentParser
 
-from methods.image.functions import *
+from d2autofishing.methods.image.functions import *
 
 if __name__ == '__main__':
     def main():

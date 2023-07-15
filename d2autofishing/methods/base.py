@@ -2,7 +2,7 @@ from collections.abc import Iterator
 from datetime import datetime
 from time import sleep
 
-from .controls import *
+from ..controls import *
 
 
 # After catch there are ~100 frames in 30 FPS video before interact button appears again.
