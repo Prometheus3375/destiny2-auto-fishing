@@ -1,3 +1,4 @@
+import os
 from collections.abc import Iterator
 from time import sleep
 from timeit import default_timer
@@ -6,6 +7,7 @@ from PIL.ImageGrab import grab
 
 from .functions import *
 from ..base import BaseMethod
+from ...functions import current_datetime_ms_str
 
 
 # Ideal catch button stays for 12 frames in 30 FPS video,
@@ -27,9 +29,12 @@ class ImageMethod(BaseMethod):
       For example, for screen 1920x1080 it takes ~0.032 seconds to take a screenshot.
       Thus, the actual period can be higher than this value.
       Defaults to 1/30.
+    :param: image_debug_path: path to a directory where captured images are stored for debug.
+      Images are saved only after catching a fish.
+      Defaults to ``None`` which means no debug directory.
     :param kwargs: refer to :class:`BaseMethod` for additional settings.
     """
-    __slots__ = 'key_matrix', 'tolerance', 'bbox', 'screen_grap_period'
+    __slots__ = 'key_matrix', 'tolerance', 'bbox', 'screen_grap_period', 'image_debug_path'
 
     def __init__(
             self,
@@ -39,6 +44,7 @@ class ImageMethod(BaseMethod):
             key_image_path: str,
             tolerance: int,
             screen_grab_period: float = 1 / 30,
+            image_debug_path: str = None,
             **kwargs,
             ):
         super().__init__(**kwargs)
@@ -48,6 +54,7 @@ class ImageMethod(BaseMethod):
         assert isinstance(key_image_path, str) and len(key_image_path) > 0
         assert isinstance(tolerance, int) and tolerance >= 1
         assert isinstance(screen_grab_period, (int, float)) and screen_grab_period >= 0
+        assert image_debug_path is None or (isinstance(image_debug_path, str) and image_debug_path)
 
         with open_image(key_image_path) as im:
             self.key_matrix = image_matrix(im)
@@ -56,6 +63,9 @@ class ImageMethod(BaseMethod):
         self.tolerance = tolerance
         self.bbox = (bbox_x0, bbox_y0, bbox_x0 + x, bbox_y0 + y)
         self.screen_grap_period = screen_grab_period
+        self.image_debug_path = image_debug_path
+        if image_debug_path:
+            os.makedirs(image_debug_path, exist_ok=True)
 
     @classmethod
     def from_predefined(
@@ -117,9 +127,13 @@ class ImageMethod(BaseMethod):
             diff = difference_matrix_image(self.key_matrix, img)
             do_catch = diff <= self.tolerance
 
-
             yield do_catch
             self._debug('Difference: {0}; do catch: {1}', diff, do_catch)
+            if self.image_debug_path and do_catch:
+                # colons are not allowed in file names
+                dt = current_datetime_ms_str().replace(':', '-')
+                img.save(f'{self.image_debug_path}/{diff:03} {dt}.png')
+
             delay = secs + self.screen_grap_period - default_timer()
             if delay > 0: sleep(delay)
 
