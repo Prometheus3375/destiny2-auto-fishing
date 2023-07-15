@@ -117,9 +117,9 @@ class ImageMethod(BaseMethod):
             diff = difference_matrix_image(self.key_matrix, img)
             do_catch = diff <= self.tolerance
 
-            self._debug(f'Difference: {diff!r}', f'Do catch: {do_catch}')
 
             yield do_catch
+            self._debug('Difference: {0}; do catch: {1}', diff, do_catch)
             delay = secs + self.screen_grap_period - default_timer()
             if delay > 0: sleep(delay)
 
