@@ -113,13 +113,21 @@ game settings and specify this key instead of mouse button.
 
 ## Anti-AFK system
 
-This system performs actions almost every 2 minutes, each time after casting fishing rod.
-Casting fishing rod has long animation; therefore, anti-AFK actions do not interrupt fish catching
-or anything else.
+This system performs anti-AFK actions almost every 2 minutes,
+each time after casting the fishing rod.
+Casting the rod has long animation;
+therefore, anti-AFK actions do not interrupt fish catching or anything else.
 
-If for some reason no fish was caught for 1 minute (i.e., no fishing rod was cast),
+If for some reason the fishing rod was not cast for 1 minute
 then the system starts to perform anti-AFK actions every 2 minutes
-with no additional conditions until fishing is resumed or the script is terminated.
+without additional conditions until fishing is resumed or the script is terminated.
+
+**Note**: the script cannot resume fishing, this must be done manually.
+Anti-AFK cannot track whether fishing is manually resumed, and after manual resuming
+it will continue to consider that the rod was cast a long time ago
+performing anti-AFK action according to the schedule.
+To prevent fish catch failure due to the system,
+wait till anti-AFK actions are performed and then resume fishing.
 
 The current anti-AFK actions are the following:
 
