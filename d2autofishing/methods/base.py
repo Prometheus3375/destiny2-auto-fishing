@@ -1,6 +1,7 @@
 from collections.abc import Iterator
 from time import sleep
 
+from ..anti_afk import AntiAFK
 from ..controls import *
 from ..functions import current_datetime_ms_str
 
@@ -24,6 +25,10 @@ class BaseMethod:
     :param debug_file_path: a path to debug log file.
       This file is used to write debug information.
       Defaults to ``None`` which means no debug file.
+    :param anti_afk: an instance of :class:`AntiAFK` or ``None``.
+      This instance is used to perform actions preventing the game considering the player as AFK.
+      If ``None``, then anti-AFK is disabled.
+      Defaults to ``None``.
     """
     __slots__ = (
         '_press',
@@ -32,6 +37,7 @@ class BaseMethod:
         'delay_after_catch',
         'cast_duration',
         'debug_file',
+        'anti_afk',
         )
 
     def __init__(
@@ -42,12 +48,14 @@ class BaseMethod:
             delay_after_catch: float = 10 / 3,
             cast_duration: float = 0.6,
             debug_file_path: str | None = None,
+            anti_afk: AntiAFK | None = None,
             ):
         assert isinstance(interact_key, str) and interact_key
         assert isinstance(is_mouse_button, bool)
         assert isinstance(delay_after_catch, (int, float)) and delay_after_catch > 0
         assert isinstance(cast_duration, (int, float)) and cast_duration > 0
         assert debug_file_path is None or (isinstance(debug_file_path, str) and debug_file_path)
+        assert anti_afk is None or isinstance(anti_afk, AntiAFK)
 
         self._interact_key = interact_key
         self._press = press_mouse if is_mouse_button else press_key
@@ -56,6 +64,7 @@ class BaseMethod:
         self.delay_after_catch = delay_after_catch
         self.cast_duration = cast_duration
         self.debug_file = debug_file_path
+        self.anti_afk = anti_afk
 
     def _debug(self, line: str, /, *args, **kwargs):
         """
@@ -106,4 +115,5 @@ class BaseMethod:
                 yield False
                 self.cast()
 
+            if self.anti_afk: self.anti_afk.act_based_on_catch(do_catch)
             yield False
