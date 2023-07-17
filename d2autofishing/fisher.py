@@ -13,13 +13,15 @@ def _ask_input():
 def start_fishing(
         fishing_method: BaseMethod,
         /,
-        fish_limit: int,
-        do_initial_cast: bool,
+        fish_limit: float = 50,
+        do_initial_cast: bool = True,
         ):
     """
     :param fishing_method: a method of fishing; used to cast fishing rod and catch fish.
-    :param fish_limit: the maximum number of fish to catch. When reached, this function exits.
+    :param fish_limit: the maximum number of fish to catch.
+      Defaults to 50.
     :param do_initial_cast: whether to immediately cast fishing rod when this script starts.
+      Defaults to ``True``.
     """
     fish_count = 0
     try:
