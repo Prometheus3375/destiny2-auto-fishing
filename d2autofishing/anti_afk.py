@@ -46,7 +46,7 @@ class AntiAFK:
     def act(self, current_time: float, /):
         """
         Takes the current time in seconds and
-        if anti-AFK actions were performed a period or more ago, performs them.
+        if anti-AFK actions were performed ``action_period`` seconds or more ago, performs them.
         Otherwise, does nothing.
         """
         if current_time - self._last_time_action_done >= self.action_period:
@@ -60,7 +60,7 @@ class AntiAFK:
     def act_based_on_catch(self, fish_caught: bool, /):
         """
         Takes a boolean indicating whether fish was caught or not.
-        If fish was caught, or the last catch was ``no_fish_threshold`` seconds or more ago,
+        If fish was caught or the last catch was ``no_fish_threshold`` seconds or more ago,
         then calls method ``act``. Otherwise, does nothing.
         """
         current_time = perf_counter()
