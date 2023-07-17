@@ -41,7 +41,7 @@ class BaseMethod:
             is_mouse_button: bool = False,
             delay_after_catch: float = 10 / 3,
             cast_duration: float = 0.6,
-            debug_file_path: str = None,
+            debug_file_path: str | None = None,
             ):
         assert isinstance(interact_key, str) and interact_key
         assert isinstance(is_mouse_button, bool)

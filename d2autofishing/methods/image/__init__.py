@@ -44,7 +44,7 @@ class ImageMethod(BaseMethod):
             key_image_path: str,
             tolerance: int,
             screen_grab_period: float = 1 / 30,
-            image_debug_path: str = None,
+            image_debug_path: str | None = None,
             **kwargs,
             ):
         super().__init__(**kwargs)
