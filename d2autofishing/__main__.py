@@ -53,6 +53,7 @@ if __name__ == '__main__':
 
         args = parser.parse_args()
 
+        from d2autofishing.anti_afk import AntiAFK
         from d2autofishing.fisher import start_fishing
         from d2autofishing.methods.image import ImageMethod
 
@@ -62,6 +63,7 @@ if __name__ == '__main__':
                 screen_height=args.screen_height,
                 localization=args.localization,
                 key=args.interact_key,
+                anti_afk=AntiAFK(),
                 ),
             fish_limit=args.fish_limit,
             do_initial_cast=args.skip_initial_cast,
