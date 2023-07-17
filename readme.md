@@ -1,6 +1,15 @@
 A tool for automatic fishing in Destiny 2.
 Inspired by [D2SemiAutoFisher](https://github.com/Chadhendrixs/D2SemiAutoFisher).
 
+# Features
+
+- Predefined configurations for 1980x1080 screen resolutions,
+  English and Russian localizations with `E` as interaction button.
+- An opportunity to add configuration for your own resolution, localization and interaction key.
+- Customizable fish limit to prevent fish left on the surface from disappearing.
+- Anti-AFK system to prevent being kicked from the game during long fishing sessions.
+  The system continues to run even if the player stops fishing or dies.
+
 # Installation
 
 1. Install [Python 3.11.4](https://www.python.org/downloads/release/python-3114/)
@@ -21,7 +30,7 @@ Inspired by [D2SemiAutoFisher](https://github.com/Chadhendrixs/D2SemiAutoFisher)
 
 1. Open project directory in Explorer, type `powershell` in address line and press Enter.
 2. If there is a virtual environment (installation step 5), activate it.
-3. Switch you keyboard layout to English (USA).
+3. Switch your keyboard layout to English (USA).
 4. Run `python -m d2autofishing 1920 1080 english E` to start the script
    for screen with resolution 1920x1080 and Destiny 2
    with English localization and `E` as interaction key.
@@ -30,8 +39,14 @@ The script can be terminated by pressing Enter after it is fully started.
 While script is running you can freely change keyboard layout,
 but you are forced to use English (USA) before its start.
 
-For more information and parameters run `python main.py --help`.
+For more information and parameters run `python -m d2autofishing --help`.
 This command can be run without installed dependencies.
+
+Some tips in working with PowerShell:
+
+- Use ⬆ and ⬇ keys to search for history of commands.
+- If you have copied a command, you can paste it in single click of right mouse button.
+- Press `Ctrl+C` to terminate an executing command.
 
 ## Adding unsupported resolutions, localizations and keys
 
@@ -53,7 +68,7 @@ in the section below.
    2 seconds after.
 5. Extract several frames when `Perfect catch` interaction is clearly visible as well as some
    frames before and after.
-6. Crop extracted frames at the same place and as the screenshot.
+6. Crop extracted frames at the same place as in the screenshot.
    I suggest to use [XnView MP](https://www.xnview.com/en/xnviewmp/) for this.
 7. Add your key if it is not present.
     - Run `python -m d2autofishing.methods.image "path/to/cropped/screenshot" -d "path/to/directory/with/other/images"`
@@ -94,4 +109,27 @@ Since mouse button is the primary way to interact,
 the game shows its image when interaction is available.
 Thus, its image must be used by the script. But this button cannot be pressed by the script
 because of library limitations; therefore, you need to set an alternative key in
-game settings and specify this key instead of mouse button. 
+game settings and specify this key instead of mouse button.
+
+## Anti-AFK system
+
+This system performs actions almost every 2 minutes, each time after casting fishing rod.
+Casting fishing rod has long animation; therefore, anti-AFK actions do not interrupt fish catching
+or anything else.
+
+If for some reason no fish was caught for 1 minute (i.e., no fishing rod was cast),
+then the system starts to perform anti-AFK actions every 2 minutes
+with no additional conditions until fishing is resumed or the script is terminated.
+
+The current anti-AFK actions are the following:
+
+1. Press `F1`.
+2. Wait 1 second.
+3. Press `D`.
+4. Wait 1 second.
+5. Press `ESC`.
+
+To check if these actions indeed prevent kicking to orbit,
+I made a small script to perform these actions every minute,
+loaded into EDZ and left the script and the game running while I was sleeping.
+After I woke up, my character was still in EDZ.
