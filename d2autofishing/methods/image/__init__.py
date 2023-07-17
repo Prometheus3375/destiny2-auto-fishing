@@ -1,6 +1,6 @@
 import os
 from collections.abc import Iterator
-from time import sleep
+from time import perf_counter, sleep
 from timeit import default_timer
 
 from PIL.ImageGrab import grab
@@ -122,7 +122,7 @@ class ImageMethod(BaseMethod):
 
     def _start(self, /) -> Iterator[bool]:
         while True:
-            secs = default_timer()
+            secs = perf_counter()
             img = grab(self.bbox)
             diff = difference_matrix_image(self.key_matrix, img)
             do_catch = diff <= self.tolerance
