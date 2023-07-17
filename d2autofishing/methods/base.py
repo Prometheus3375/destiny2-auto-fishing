@@ -14,13 +14,13 @@ class BaseMethod:
     """
     Base method for all fishing methods.
 
-    :param interact_key: a key that is used to catch fish and cast fishing rod.
+    :param interact_key: a key that is used to catch fish and cast the fishing rod.
       Defaults to ``e``.
     :param is_mouse_button: should be ``True`` if ``interact_key`` is a mouse button.
       Defaults to ``False``.
-    :param delay_after_catch: time in seconds to wait after catch before casting fishing rod.
+    :param delay_after_catch: time in seconds to wait after catch before casting the fishing rod.
       Defaults to 10/3.
-    :param cast_duration: time in seconds to hold interact key to cast fishing rod.
+    :param cast_duration: time in seconds to hold interact key to cast the fishing rod.
       Defaults to 0.6.
     :param debug_file_path: a path to debug log file.
       This file is used to write debug information.
@@ -77,7 +77,7 @@ class BaseMethod:
 
     def cast(self, /):
         """
-        Issues a command to cast fishing rod.
+        Issues a command to cast the fishing rod.
         """
         self._hold(self._interact_key, self.cast_duration)
 
@@ -101,7 +101,7 @@ class BaseMethod:
         If fish is successfully caught, yields ``True``.
         Yields ``False`` in any other case.
 
-        :param do_cast: if ``True``, then casts fishing rod before entering the loop.
+        :param do_cast: if ``True``, then casts the fishing rod before entering the loop.
         """
         if do_cast:
             self.cast()

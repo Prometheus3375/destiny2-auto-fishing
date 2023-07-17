@@ -48,7 +48,7 @@ if __name__ == '__main__':
             '--skip_initial_cast',
             '-sic',
             action='store_false',
-            help='if present then the script will not cast fishing rod for the first time',
+            help='if present then the script will not cast the fishing rod for the first time',
             )
 
         args = parser.parse_args()
