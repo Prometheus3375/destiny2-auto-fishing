@@ -34,14 +34,27 @@ def start_fishing(
         thread = Thread(target=_ask_input, daemon=True)
         thread.start()
 
+        anti_afk = fishing_method.anti_afk
+        # Loop anti-afk only if fish limit is reached
+        loop_anti_afk = False
+
         for b in fishing_method.start(do_initial_cast):
             fish_count += b
             if fish_count >= fish_limit:
                 print('Fish limit is reached; collect it and restart the script')
+                loop_anti_afk = bool(anti_afk)
                 break
             elif not thread.is_alive():
                 print('Enter is pressed')
                 break
+
+        if loop_anti_afk:
+            print('Anti AFK is enabled; the script continues to run until terminated manually')
+            for _ in anti_afk.loop_actions():
+                if not thread.is_alive():
+                    print('Enter is pressed')
+                    break
+
     except KeyboardInterrupt:
         print('Ctrl+C is pressed')
 
