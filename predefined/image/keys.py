@@ -13,4 +13,4 @@ class Key(NamedTuple):
 
 del NamedTuple, path
 
-E_1920x1080 = Key('e', f'{directory}\\E 1920x1080.png', tolerance=50)
+E_1920x1080 = Key('e', f'{directory}\\E 1920x1080.png', tolerance=85)
