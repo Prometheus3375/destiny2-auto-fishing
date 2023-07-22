@@ -128,7 +128,7 @@ class ImageMethod(BaseMethod):
             do_catch = diff <= self.tolerance
 
             yield do_catch
-            self._debug('Difference: {0}; do catch: {1}', diff, do_catch)
+            self._log('Difference: {0}; do catch: {1}', diff, do_catch)
             if self.image_debug_path and do_catch:
                 # colons are not allowed in file names
                 dt = current_datetime_ms_str().replace(':', '-')
