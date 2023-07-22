@@ -20,9 +20,9 @@ class BaseMethod:
     :param is_mouse_button: should be ``True`` if ``interact_key`` is a mouse button.
       Defaults to ``False``.
     :param delay_after_catch: time in seconds to wait after catch before casting the fishing rod.
-      Defaults to 10/3.
+      Defaults to 3.3.
     :param cast_duration: time in seconds to hold interact key to cast the fishing rod.
-      Defaults to 0.6.
+      Defaults to 1.
     :param log_directory_path: path to a directory where log files will be stored.
       Log file is used to write debug information, its name is the current date and time.
       Defaults to ``None`` which means no log directory and no current log file.
@@ -46,8 +46,8 @@ class BaseMethod:
             /,
             interact_key: str = 'e',
             is_mouse_button: bool = False,
-            delay_after_catch: float = 10 / 3,
-            cast_duration: float = 0.6,
+            delay_after_catch: float = 3.3,
+            cast_duration: float = 1,  # 0.6 is not enough at low FPS
             anti_afk: AntiAFK | None = None,
             log_directory_path: str | None = None,
             ):
