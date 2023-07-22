@@ -12,4 +12,11 @@ def current_datetime_ms_str() -> str:
     return f'{dt}.{ms:03}'
 
 
-__all__ = 'current_datetime_ms_str',
+def current_datetime_str() -> str:
+    """
+    Takes current date and time, sets microseconds to zero and converts to a string.
+    """
+    return str(datetime.now().replace(microsecond=0))
+
+
+__all__ = 'current_datetime_ms_str', 'current_datetime_str'
