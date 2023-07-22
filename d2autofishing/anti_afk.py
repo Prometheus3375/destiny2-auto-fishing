@@ -17,11 +17,11 @@ class AntiAFK:
     #. Press ``ESC``.
 
     :param action_period: time in seconds how often anti-AFK actions should be done.
-      Defaults to 120, minimum value is 30.
-    :param no_cast_threshold: time in seconds for how long
-      the fishing rod is allowed not to be cast. After this threshold is passed,
+      Defaults to 120, value must be in range ``[30, 300]``.
+    :param no_cast_threshold: time in seconds for how long it is allowed
+      not to cast the fishing rod. After this threshold is passed,
       the system will continue to perform anti-AFK actions despite stopped fishing.
-      Defaults to 60, minimum value is 30.
+      Defaults to 60, value must be in range ``[30, action_period]``.
     """
     __slots__ = (
         'action_period',
@@ -36,8 +36,9 @@ class AntiAFK:
             action_period: float = 120,
             no_cast_threshold: float = 60,
             ):
-        assert isinstance(action_period, (float, int)) and action_period >= 30
-        assert isinstance(no_cast_threshold, (float, int)) and no_cast_threshold >= 30
+        assert isinstance(action_period, (float, int)) and 30 <= action_period <= 300
+        assert isinstance(no_cast_threshold, (float, int)) and \
+               30 <= no_cast_threshold <= action_period
 
         self.action_period = action_period
         self.no_cast_threshold = no_cast_threshold
