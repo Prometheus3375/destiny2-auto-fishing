@@ -3,7 +3,7 @@ from time import sleep
 # noinspection PyProtectedMember
 from pyautogui._pyautogui_win import _click, _keyDown, _keyUp, _mouseDown, _mouseUp, _position
 
-KEY_PRESS_DURATION = 0.05
+KEY_PRESS_DURATION = 0.2
 """
 Sleep time between down and up operations inside function ``press_key``.
 """
@@ -11,9 +11,9 @@ Sleep time between down and up operations inside function ``press_key``.
 
 def press_key(key: str, /):
     _keyDown(key)
-    # Sometimes Destiny 2 fails to capture key press
+    # Sometimes Destiny 2 fails to capture key presses
     # if there is no sleep or sleep time is low.
-    # Value of 1 / 32 was failing sometimes, so I decided to put 0.05.
+    # Value of 0.1 sometimes fails (usually at low FPS), so I put 0.2.
     sleep(KEY_PRESS_DURATION)
     _keyUp(key)
 
