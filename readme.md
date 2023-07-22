@@ -76,7 +76,7 @@ in the section below.
       the second one is the path to the directory with all key images you created at step 6.
         - Run `python -m d2autofishing.methods.image --help` to view available options.
     - You will see several `tolerance` values in the output. Pick the most appropriate one.
-      A value of 50 is usually sufficient.
+      A value of 85 is usually sufficient.
     - Open `predefined/image/keys.py` in Notepad or any other text editor.
     - Add this code with corresponded values placed. Angle braces (`<>`) must be omitted.
       ```
@@ -126,8 +126,7 @@ without additional conditions until fishing is resumed or the script is terminat
 Anti-AFK cannot track whether fishing is manually resumed, and after manual resuming
 it will continue to consider that the rod was cast a long time ago
 performing anti-AFK action according to the schedule.
-To prevent fish catch failure due to the system,
-wait till anti-AFK actions are performed and then resume fishing.
+Restart the script to prevent fish catch failure due to the system.
 
 The current anti-AFK actions are the following:
 
