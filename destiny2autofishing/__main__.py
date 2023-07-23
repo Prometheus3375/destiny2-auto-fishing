@@ -53,9 +53,9 @@ if __name__ == '__main__':
 
         args = parser.parse_args()
 
-        from d2autofishing.anti_afk import AntiAFK
-        from d2autofishing.fisher import start_fishing
-        from d2autofishing.methods.image import ImageMethod
+        from destiny2autofishing.anti_afk import AntiAFK
+        from destiny2autofishing.fisher import start_fishing
+        from destiny2autofishing.methods.image import ImageMethod
 
         start_fishing(
             ImageMethod.from_predefined(

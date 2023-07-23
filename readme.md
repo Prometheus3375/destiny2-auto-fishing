@@ -31,7 +31,7 @@ Inspired by [D2SemiAutoFisher](https://github.com/Chadhendrixs/D2SemiAutoFisher)
 1. Open project directory in Explorer, type `powershell` in address line and press Enter.
 2. If there is a virtual environment (installation step 5), activate it.
 3. Switch your keyboard layout to English (USA).
-4. Run `python -m d2autofishing 1920 1080 english E` to start the script
+4. Run `python -m destiny2autofishing 1920 1080 english E` to start the script
    for screen with resolution 1920x1080 and Destiny 2
    with English localization and `E` as interaction key.
 
@@ -39,7 +39,7 @@ The script can be terminated by pressing Enter after it is fully started.
 While script is running you can freely change keyboard layout,
 but you are forced to use English (USA) before its start.
 
-For more information and parameters run `python -m d2autofishing --help`.
+For more information and parameters run `python -m destiny2autofishing --help`.
 This command can be run without installed dependencies.
 
 Some tips in working with PowerShell:
@@ -71,10 +71,10 @@ in the section below.
 6. Crop extracted frames at the same place as in the screenshot.
    I suggest to use [XnView MP](https://www.xnview.com/en/xnviewmp/) for this.
 7. Add your key if it is not present.
-    - Run `python -m d2autofishing.methods.image "path/to/cropped/screenshot" -d "path/to/directory/with/other/images"`
+    - Run `python -m destiny2autofishing.methods.image "path/to/cropped/screenshot" -d "path/to/directory/with/other/images"`
       where the first path is the path to the cropped screenshot and
       the second one is the path to the directory with all key images you created at step 6.
-        - Run `python -m d2autofishing.methods.image --help` to view available options.
+        - Run `python -m destiny2autofishing.methods.image --help` to view available options.
     - You will see several `tolerance` values in the output. Pick the most appropriate one.
       A value of 85 is usually sufficient.
     - Open `predefined/image/keys.py` in Notepad or any other text editor.
@@ -86,8 +86,8 @@ in the section below.
       ```
       <key name>_<screen width>x<screen height> = Key('<key name in lower case>', '<path to clearest key image>', tolerance=<tolerance>, is_mouse_button=True)
       ```
-8. Run `python -m d2autofishing --help`. If you see your localization and key in the list of supported,
-   then you have done everything correctly.
+8. Run `python -m destiny2autofishing --help`. If you see your localization and key
+   in the list of supported, then you have done everything correctly.
 
 If you find difficult to add your own resolution, localization or key, then create an issue in
 [issue tracker](https://github.com/Prometheus3375/destiny2-auto-fishing/issues)
