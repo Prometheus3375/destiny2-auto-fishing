@@ -118,7 +118,7 @@ each time after casting the fishing rod.
 Casting the rod has long animation;
 therefore, anti-AFK actions do not interrupt fish catching or anything else.
 
-If for some reason the fishing rod was not cast for 1 minute
+If for some reason the fishing rod was not cast for 1.5 minute
 then the system starts to perform anti-AFK actions every 2 minutes
 without additional conditions until fishing is resumed or the script is terminated.
 
