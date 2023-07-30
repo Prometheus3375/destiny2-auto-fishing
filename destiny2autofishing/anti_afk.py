@@ -34,7 +34,7 @@ class AntiAFK:
             self,
             /,
             action_period: int = 120,
-            no_cast_threshold: int = 90,
+            no_cast_threshold: int = 150,
             ):
         assert isinstance(action_period, int) and 30 <= action_period <= 300
         assert isinstance(no_cast_threshold, int) and \
