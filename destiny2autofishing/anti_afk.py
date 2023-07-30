@@ -33,12 +33,12 @@ class AntiAFK:
     def __init__(
             self,
             /,
-            action_period: float = 120,
-            no_cast_threshold: float = 90,
+            action_period: int = 120,
+            no_cast_threshold: int = 90,
             ):
-        assert isinstance(action_period, (float, int)) and 30 <= action_period <= 300
-        assert isinstance(no_cast_threshold, (float, int)) and \
                30 <= no_cast_threshold <= action_period
+        assert isinstance(action_period, int) and 30 <= action_period <= 300
+        assert isinstance(no_cast_threshold, int) and \
 
         self.action_period = action_period
         self.no_cast_threshold = no_cast_threshold
