@@ -154,3 +154,6 @@ class BaseMethod:
 
             if self.anti_afk: self.anti_afk.act_based_on_catch(do_catch)
             yield False
+
+
+__all__ = 'BaseMethod',
