@@ -25,7 +25,7 @@ class ImageMethod(BaseMethod):
     :param tolerance: how far pixel values can be from the desired ones.
     :param screen_grab_period: time in seconds how often screen should be captured.
       **Note**: screen capturing take much time and
-      this time is different for different screen sizes.
+      this time is different for different screen resolutions.
       For example, for screen 1920x1080 it takes ~0.032 seconds to take a screenshot.
       Thus, the actual period can be higher than this value.
       Defaults to 1/30.
@@ -34,6 +34,8 @@ class ImageMethod(BaseMethod):
       Defaults to the empty string which means no debug directory.
     :param kwargs: refer to :class:`BaseMethod` for additional settings.
     """
+    name = 'image'
+
     __slots__ = 'key_matrix', 'tolerance', 'bbox', 'screen_grap_period', 'image_debug_path'
 
     def __init__(
