@@ -44,7 +44,7 @@ def start_fishing(
             fish_count += b
             if fish_count >= fish_limit:
                 print('Fish limit is reached; collect it and restart the script')
-                loop_anti_afk = bool(anti_afk)
+                loop_anti_afk = anti_afk is not None
                 break
             elif not thread.is_alive():
                 print('Enter is pressed')
