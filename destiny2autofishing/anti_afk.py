@@ -15,13 +15,6 @@ class AntiAFK:
     #. Press ``D``.
     #. Wait 1 second.
     #. Press ``F1``.
-
-    :param action_period: time in seconds how often anti-AFK actions should be done.
-      Defaults to 120, value must be in range ``[30, 300]``.
-    :param no_cast_threshold: time in seconds for how long it is allowed
-      not to cast the fishing rod. After this threshold is passed,
-      the system will continue to perform anti-AFK actions despite stopped fishing.
-      Defaults to 90, value must be in range ``[30, 300]``.
     """
     __slots__ = (
         'action_period',
@@ -36,6 +29,14 @@ class AntiAFK:
             action_period: int = 120,
             no_cast_threshold: int = 150,
             ):
+        """
+        :param action_period: time in seconds how often anti-AFK actions should be done.
+          Defaults to 120, value must be in range ``[30, 300]``.
+        :param no_cast_threshold: time in seconds. If so much time passes since the last cast
+          of the fishing rod, then the system will perform anti-AFK actions
+          as soon as possible, without waiting for the cast.
+          Defaults to 90, value must be in range ``[30, 300]``.
+        """
         assert isinstance(action_period, int) and 30 <= action_period <= 300
         assert isinstance(no_cast_threshold, int) and \
                30 <= no_cast_threshold <= 300

@@ -13,22 +13,6 @@ BaseMethodT = TypeVar('BaseMethodT', bound='BaseMethod')
 class BaseMethod:
     """
     Base method for all fishing methods.
-
-    :param interact_key: a key that is used to catch fish and cast the fishing rod.
-      Defaults to ``e``.
-    :param is_mouse_button: should be ``True`` if ``interact_key`` is a mouse button.
-      Defaults to ``False``.
-    :param delay_after_catch: time in seconds to wait after catch before casting the fishing rod.
-      Defaults to 3.3.
-    :param cast_duration: time in seconds to hold interact key to cast the fishing rod.
-      Defaults to 1.
-    :param log_directory_path: path to a directory where log files will be stored.
-      Log file is used to write debug information, its name is the current date and time.
-      Defaults to the empty string which means no log directory and no current log file.
-    :param anti_afk: an instance of :class:`AntiAFK` or ``None``.
-      This instance is used to perform actions preventing the game to consider a player as AFK.
-      If ``None``, then anti-AFK is disabled.
-      Defaults to ``None``.
     """
 
     name: str
@@ -76,9 +60,27 @@ class BaseMethod:
             cast_duration: float = 1,
             # Interact button is held for ~11 frames in 30 FPS video to continue fishing
             # 0.6 is not enough at low FPS
-            anti_afk: AntiAFK | None = None,
             log_directory_path: str = '',
+            anti_afk: AntiAFK | None = None,
             ):
+        """
+        :param interact_key: a key that is used to catch fish and cast the fishing rod.
+          Defaults to ``e``.
+        :param is_mouse_button: should be ``True`` if ``interact_key`` is a mouse button.
+          Defaults to ``False``.
+        :param delay_after_catch: time in seconds to wait after catch
+          before casting the fishing rod.
+          Defaults to 3.3.
+        :param cast_duration: time in seconds to hold interact key to cast the fishing rod.
+          Defaults to 1.
+        :param log_directory_path: path to a directory where log files will be stored.
+          Log file is used to write debug information, its name is the current date and time.
+          Defaults to the empty string which means no log directory and no current log file.
+        :param anti_afk: an instance of :class:`AntiAFK` or ``None``.
+          This instance is used to perform actions preventing the game to consider a player as AFK.
+          If ``None``, then anti-AFK is disabled.
+          Defaults to ``None``.
+        """
         assert isinstance(interact_key, str) and interact_key
         assert isinstance(is_mouse_button, bool)
         assert isinstance(delay_after_catch, (int, float)) and delay_after_catch > 0

@@ -18,21 +18,6 @@ from ...functions import current_datetime_ms_str
 class ImageMethod(BaseMethod):
     """
     Fishing method which uses screen capture to detect an opportunity of fish catch.
-
-    :param bbox_x0: screen X coordinate where capturing bounding box starts.
-    :param bbox_y0: screen Y coordinate where capturing bounding box starts.
-    :param key_image_path: path to a sample image in PNG format of the interaction key.
-    :param tolerance: how far pixel values can be from the desired ones.
-    :param screen_grab_period: time in seconds how often screen should be captured.
-      **Note**: screen capturing take much time and
-      this time is different for different screen resolutions.
-      For example, for screen 1920x1080 it takes ~0.032 seconds to take a screenshot.
-      Thus, the actual period can be higher than this value.
-      Defaults to 1/30.
-    :param: image_debug_path: path to a directory where captured images are stored for debug.
-      Images are saved only after catching a fish.
-      Defaults to the empty string which means no debug directory.
-    :param kwargs: refer to :class:`BaseMethod` for additional settings.
     """
     name = 'image'
 
@@ -49,14 +34,30 @@ class ImageMethod(BaseMethod):
             image_debug_path: str = '',
             **kwargs,
             ):
-        super().__init__(**kwargs)
-
+        """
+        :param bbox_x0: screen X coordinate where capturing bounding box starts.
+        :param bbox_y0: screen Y coordinate where capturing bounding box starts.
+        :param key_image_path: path to a sample image in PNG format of the interaction key.
+        :param tolerance: how far pixel values can be from the desired ones.
+        :param screen_grab_period: time in seconds how often screen should be captured.
+          **Note**: screen capturing take much time and
+          this time is different for different screen resolutions.
+          For example, for screen 1920x1080 it takes ~0.032 seconds to take a screenshot.
+          Thus, the actual period can be higher than this value.
+          Defaults to 1/30.
+        :param: image_debug_path: path to a directory where captured images are stored for debug.
+          Images are saved only after catching a fish.
+          Defaults to the empty string which means no debug directory.
+        :param kwargs: refer to :class:`BaseMethod` for additional settings.
+        """
         assert isinstance(bbox_x0, int) and bbox_x0 >= 0
         assert isinstance(bbox_y0, int) and bbox_y0 >= 0
         assert isinstance(key_image_path, str) and key_image_path
         assert isinstance(tolerance, int) and tolerance >= 0
         assert isinstance(screen_grab_period, (int, float)) and screen_grab_period >= 0
         assert isinstance(image_debug_path, str)
+
+        super().__init__(**kwargs)
 
         with open_image(key_image_path) as im:
             self.key_matrix = image_matrix(im)
