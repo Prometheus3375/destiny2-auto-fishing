@@ -14,7 +14,7 @@ class AntiAFK:
     #. Wait 1 second.
     #. Press ``D``.
     #. Wait 1 second.
-    #. Press ``ESC``.
+    #. Press ``F1``.
 
     :param action_period: time in seconds how often anti-AFK actions should be done.
       Defaults to 120, value must be in range ``[30, 300]``.
@@ -56,7 +56,7 @@ class AntiAFK:
             sleep(1)
             press_key('d')
             sleep(1)
-            press_key('esc')
+            press_key('f1')
 
     def act_based_on_catch(self, rod_cast: bool, /):
         """

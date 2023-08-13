@@ -118,7 +118,7 @@ each time after casting the fishing rod.
 Casting the rod has long animation;
 therefore, anti-AFK actions do not interrupt fish catching or anything else.
 
-If for some reason the fishing rod was not cast for 2.5 minutes
+If for some reason the fishing rod was not cast for 2.5 minutes,
 then the system starts to perform anti-AFK actions every 2 minutes
 without additional conditions until fishing is resumed or the script is terminated.
 
@@ -134,7 +134,7 @@ The current anti-AFK actions are the following:
 2. Wait 1 second.
 3. Press `D`.
 4. Wait 1 second.
-5. Press `ESC`.
+5. Press `F1`.
 
 To check if these actions indeed prevent kicking to orbit,
 I made a small script to perform these actions every minute,
