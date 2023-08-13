@@ -31,7 +31,7 @@ class ImageMethod(BaseMethod):
       Defaults to 1/30.
     :param: image_debug_path: path to a directory where captured images are stored for debug.
       Images are saved only after catching a fish.
-      Defaults to ``None`` which means no debug directory.
+      Defaults to the empty string which means no debug directory.
     :param kwargs: refer to :class:`BaseMethod` for additional settings.
     """
     __slots__ = 'key_matrix', 'tolerance', 'bbox', 'screen_grap_period', 'image_debug_path'
@@ -44,7 +44,7 @@ class ImageMethod(BaseMethod):
             key_image_path: str,
             tolerance: int,
             screen_grab_period: float = 1 / 30,
-            image_debug_path: str | None = None,
+            image_debug_path: str = '',
             **kwargs,
             ):
         super().__init__(**kwargs)
@@ -54,7 +54,7 @@ class ImageMethod(BaseMethod):
         assert isinstance(key_image_path, str) and key_image_path
         assert isinstance(tolerance, int) and tolerance >= 0
         assert isinstance(screen_grab_period, (int, float)) and screen_grab_period >= 0
-        assert image_debug_path is None or (isinstance(image_debug_path, str) and image_debug_path)
+        assert isinstance(image_debug_path, str)
 
         with open_image(key_image_path) as im:
             self.key_matrix = image_matrix(im)

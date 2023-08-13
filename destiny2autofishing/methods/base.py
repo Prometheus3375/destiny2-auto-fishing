@@ -25,7 +25,7 @@ class BaseMethod:
       Defaults to 1.
     :param log_directory_path: path to a directory where log files will be stored.
       Log file is used to write debug information, its name is the current date and time.
-      Defaults to ``None`` which means no log directory and no current log file.
+      Defaults to the empty string which means no log directory and no current log file.
     :param anti_afk: an instance of :class:`AntiAFK` or ``None``.
       This instance is used to perform actions preventing the game considering the player as AFK.
       If ``None``, then anti-AFK is disabled.
@@ -49,15 +49,14 @@ class BaseMethod:
             delay_after_catch: float = 3.3,
             cast_duration: float = 1,  # 0.6 is not enough at low FPS
             anti_afk: AntiAFK | None = None,
-            log_directory_path: str | None = None,
+            log_directory_path: str = '',
             ):
         assert isinstance(interact_key, str) and interact_key
         assert isinstance(is_mouse_button, bool)
         assert isinstance(delay_after_catch, (int, float)) and delay_after_catch > 0
         assert isinstance(cast_duration, (int, float)) and cast_duration > 0
         assert anti_afk is None or isinstance(anti_afk, AntiAFK)
-        assert log_directory_path is None or \
-               (isinstance(log_directory_path, str) and log_directory_path)
+        assert isinstance(log_directory_path, str)
 
         self._interact_key = interact_key
         self._press = press_mouse if is_mouse_button else press_key
