@@ -1,14 +1,13 @@
 import os
 from collections.abc import Iterator
 from time import sleep
+from typing import TypeVar
 
 from ..anti_afk import AntiAFK
 from ..controls import *
 from ..functions import current_datetime_ms_str, current_datetime_str
 
-
-# After catch there are ~100 frames in 30 FPS video before interact button appears again.
-# Interact button should be held for ~11 frames to continue fishing.
+BaseMethodT = TypeVar('BaseMethodT', bound='BaseMethod')
 
 
 class BaseMethod:
@@ -27,10 +26,35 @@ class BaseMethod:
       Log file is used to write debug information, its name is the current date and time.
       Defaults to the empty string which means no log directory and no current log file.
     :param anti_afk: an instance of :class:`AntiAFK` or ``None``.
-      This instance is used to perform actions preventing the game considering the player as AFK.
+      This instance is used to perform actions preventing the game to consider a player as AFK.
       If ``None``, then anti-AFK is disabled.
       Defaults to ``None``.
     """
+
+    name: str
+    """
+    Name of fishing method.
+    """
+
+    __name2class: dict[str, BaseMethodT] = {}
+
+    def __init_subclass__(cls, /, **kwargs):
+        name = cls.__dict__.get('name')
+        if name is None:
+            raise TypeError(f"{cls} must have attribute 'name'")
+
+        if not (isinstance(name, str) and name):
+            raise TypeError(
+                f"attribute 'name' of {cls} must be a non-empty string, "
+                f"got {name!r} of type {type(name)}"
+                )
+
+        present = cls.__name2class.get(name)
+        if present is not None:
+            raise ValueError(f'method name {present.name!r} is already used by {present}')
+
+        cls.__name2class[name] = cls
+
     __slots__ = (
         '_press',
         '_hold',
@@ -47,7 +71,11 @@ class BaseMethod:
             interact_key: str = 'e',
             is_mouse_button: bool = False,
             delay_after_catch: float = 3.3,
-            cast_duration: float = 1,  # 0.6 is not enough at low FPS
+            # After catch there are ~100 frames in 30 FPS video
+            # before interact button appears again
+            cast_duration: float = 1,
+            # Interact button is held for ~11 frames in 30 FPS video to continue fishing
+            # 0.6 is not enough at low FPS
             anti_afk: AntiAFK | None = None,
             log_directory_path: str = '',
             ):
