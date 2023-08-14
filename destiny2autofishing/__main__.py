@@ -54,10 +54,10 @@ if __name__ == '__main__':
         args = parser.parse_args()
 
         from destiny2autofishing.anti_afk import AntiAFK
-        from destiny2autofishing.fisher import start_fishing
+        from destiny2autofishing.fisher import Fisher
         from destiny2autofishing.methods.image import ImageMethod
 
-        start_fishing(
+        Fisher(
             ImageMethod.from_predefined(
                 screen_width=args.screen_width,
                 screen_height=args.screen_height,
@@ -67,7 +67,7 @@ if __name__ == '__main__':
                 ),
             fish_limit=args.fish_limit,
             do_initial_cast=args.skip_initial_cast,
-            )
+            ).start()
 
 
     main()
