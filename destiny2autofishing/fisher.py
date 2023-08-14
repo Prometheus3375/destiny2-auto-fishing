@@ -2,6 +2,7 @@ from threading import Thread
 from time import sleep
 
 from .configurator import ConfigParameter, Configurable
+from .anti_afk import AntiAFK
 from .methods.base import BaseMethod
 
 
@@ -13,11 +14,12 @@ class Fisher(Configurable, config_group=''):
     """
     Main class for fishing.
     """
-    __slots__ = 'fishing_method', 'fish_limit', 'do_initial_cast'
+    __slots__ = 'anti_afk', 'fishing_method', 'fish_limit', 'do_initial_cast'
 
     def __init__(
             self,
             fishing_method: BaseMethod,
+            anti_afk: AntiAFK | None,
             /,
             fish_limit: float = 50,
             do_initial_cast: bool = True,
@@ -25,6 +27,9 @@ class Fisher(Configurable, config_group=''):
         """
         :param fishing_method: a method of fishing which used
           to cast the fishing rod and catch fish.
+        :param anti_afk: an instance of :class:`AntiAFK` or ``None``.
+          This instance is used to perform actions preventing the game to consider a player as AFK.
+          If ``None``, then anti-AFK actions are not performed.
         :param fish_limit: the maximum number of fish to catch.
           Defaults to 50.
         :param do_initial_cast: whether to immediately cast the fishing rod
@@ -32,10 +37,14 @@ class Fisher(Configurable, config_group=''):
           Defaults to ``True``.
         """
         assert isinstance(fishing_method, BaseMethod)
+        assert anti_afk is None or isinstance(anti_afk, AntiAFK)
         assert isinstance(fish_limit, (int, float)) and fish_limit > 0
         assert isinstance(do_initial_cast, bool)
 
         self.fishing_method = fishing_method
+        self.anti_afk = anti_afk
+        fishing_method.anti_afk = anti_afk
+
         self.fish_limit = fish_limit
         self.do_initial_cast = do_initial_cast
 
@@ -54,7 +63,6 @@ class Fisher(Configurable, config_group=''):
             thread = Thread(target=_ask_input, daemon=True)
             thread.start()
 
-            anti_afk = self.fishing_method.anti_afk
             # Loop anti-afk only if fish limit is reached
             loop_anti_afk = False
 
@@ -62,7 +70,7 @@ class Fisher(Configurable, config_group=''):
                 fish_count += b
                 if fish_count >= self.fish_limit:
                     print('Fish limit is reached; collect it and restart the script')
-                    loop_anti_afk = anti_afk is not None
+                    loop_anti_afk = self.anti_afk is not None
                     break
                 elif not thread.is_alive():
                     print('Enter is pressed')
@@ -82,7 +90,7 @@ class Fisher(Configurable, config_group=''):
 
     @staticmethod
     def config_parameters() -> list[ConfigParameter]:
-        excluded_params = {'fishing_method'}
+        excluded_params = {'fishing_method', 'anti_afk'}
 
         enable_anti_afk_doc = 'Whether to enable anti-AFK actions. Defaults to ``True``.'
         return [
