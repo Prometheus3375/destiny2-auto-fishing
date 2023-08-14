@@ -43,10 +43,10 @@ class BaseMethod(Configurable, config_group='fishing-method'):
         '_press',
         '_hold',
         '_interact_key',
+        '_anti_afk',
         'delay_after_catch',
         'cast_duration',
         'log_file',
-        'anti_afk',
         )
 
     def __init__(
@@ -61,7 +61,6 @@ class BaseMethod(Configurable, config_group='fishing-method'):
             # Interact button is held for ~11 frames in 30 FPS video to continue fishing
             # 0.6 is not enough at low FPS
             log_directory_path: str = '',
-            anti_afk: AntiAFK | None = None,
             ):
         """
         :param interact_key: a key that is used to catch fish and cast the fishing rod.
@@ -74,25 +73,20 @@ class BaseMethod(Configurable, config_group='fishing-method'):
         :param log_directory_path: path to a directory where log files will be stored.
           Log file is used to write debug information; its name is the current date and time.
           Defaults to the empty string which means no log directory and no current log file.
-        :param anti_afk: an instance of :class:`AntiAFK` or ``None``.
-          This instance is used to perform actions preventing the game to consider a player as AFK.
-          If ``None``, then anti-AFK is disabled.
-          Defaults to ``None``.
         """
         assert isinstance(interact_key, str) and interact_key
         assert isinstance(is_mouse_button, bool)
         assert isinstance(delay_after_catch, (int, float)) and delay_after_catch > 0
         assert isinstance(cast_duration, (int, float)) and cast_duration > 0
-        assert anti_afk is None or isinstance(anti_afk, AntiAFK)
         assert isinstance(log_directory_path, str)
 
         self._interact_key = interact_key
         self._press = press_mouse if is_mouse_button else press_key
         self._hold = hold_mouse if is_mouse_button else hold_key
+        self._anti_afk = None
 
         self.delay_after_catch = delay_after_catch
         self.cast_duration = cast_duration
-        self.anti_afk = anti_afk
 
         if log_directory_path:
             os.makedirs(log_directory_path, exist_ok=True)
@@ -102,6 +96,25 @@ class BaseMethod(Configurable, config_group='fishing-method'):
                 )
         else:
             self.log_file = None
+
+    @property
+    def anti_afk(self, /) -> AntiAFK | None:
+        """
+        An instance of :class:`AntiAFK` or ``None``.
+        This instance is used to perform actions preventing the game to consider a player as AFK.
+        If ``None``, then anti-AFK is disabled.
+        """
+        return self._anti_afk
+
+    @anti_afk.setter
+    def anti_afk(self, value: AntiAFK | None, /):
+        """
+        Sets an instance of :class:`AntiAFK`.
+        This instance is used to perform actions preventing the game to consider a player as AFK.
+        If ``None`` is passed, disables anti-AFK.
+        """
+        assert value is None or isinstance(value, AntiAFK)
+        self._anti_afk = value
 
     def _log(self, line: str, /, *args, **kwargs):
         """
@@ -152,22 +165,16 @@ class BaseMethod(Configurable, config_group='fishing-method'):
                 yield False
                 self.cast()
 
-            if self.anti_afk: self.anti_afk.act_based_on_catch(do_catch)
+            if self._anti_afk: self._anti_afk.act_based_on_catch(do_catch)
             yield False
 
     @staticmethod
     def config_parameters() -> list[ConfigParameter]:
-        excluded_params = {'anti_afk'}
-
         method_names = ', '.join(repr(sub.name) for sub in BaseMethod.__subclasses__())
         method_name_doc = f'Name of the fishing method. Possible values: {method_names}.'
         return [
             ConfigParameter('method_name', str, method_name_doc),
-            *(
-                cp
-                for cp in ConfigParameter.function_params(BaseMethod.__init__)
-                if cp.name not in excluded_params
-                ),
+            *ConfigParameter.function_params(BaseMethod.__init__),
             ]
 
 
