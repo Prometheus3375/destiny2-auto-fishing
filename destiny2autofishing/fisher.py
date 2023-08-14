@@ -31,9 +31,10 @@ class Fisher(Configurable, config_group=''):
           This instance is used to perform actions preventing the game to consider a player as AFK.
           If ``None``, then anti-AFK actions are not performed.
         :param fish_limit: the maximum number of fish to catch.
+          People reported that fish can disappear if there is ~60 uncollected fish.
+          Put ``inf`` to disable this limit.
           Defaults to 50.
-        :param do_initial_cast: whether to immediately cast the fishing rod
-          when fishing loop starts.
+        :param do_initial_cast: whether to cast the fishing rod at the start.
           Defaults to ``True``.
         """
         assert isinstance(fishing_method, BaseMethod)
