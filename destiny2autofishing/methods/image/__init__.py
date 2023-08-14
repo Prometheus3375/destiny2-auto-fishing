@@ -71,59 +71,6 @@ class ImageMethod(BaseMethod, name='image'):
         if image_debug_path:
             os.makedirs(image_debug_path, exist_ok=True)
 
-    @classmethod
-    def from_predefined(
-            cls,
-            /,
-            screen_width: int,
-            screen_height: int,
-            localization: str,
-            key: str,
-            **kwargs,
-            ):
-        """
-        Creates :class`ImageMethod` from predefined settings.
-        """
-        assert isinstance(screen_width, int) and screen_width > 0
-        assert isinstance(screen_height, int) and screen_height > 0
-        assert isinstance(localization, str) and len(localization) > 0
-        assert isinstance(key, str) and len(key) > 0
-
-        from predefined.image import available_keys, available_localizations
-
-        resolution = f'{screen_width}x{screen_height}'
-
-        loc = available_localizations.get(f'{localization.lower()}_{resolution}')
-        k = available_keys.get(f'{key.lower()}_{resolution}')
-
-        if not loc and not k:
-            raise ValueError(
-                f'cannot find predefined localization {localization!r} '
-                f'and key {key!r} for screen resolution {resolution}'
-                )
-
-        if not loc:
-            raise ValueError(
-                f'cannot find predefined localization {localization!r} '
-                f'for screen resolution {resolution}'
-                )
-
-        if not k:
-            raise ValueError(
-                f'cannot find predefined key {key!r} '
-                f'for screen resolution {resolution}'
-                )
-
-        return cls(
-            bbox_x0=loc.bbox_x0,
-            bbox_y0=loc.bbox_y0,
-            interact_key=k.name,
-            is_mouse_button=k.is_mouse_button,
-            key_image_path=k.image_path,
-            tolerance=k.tolerance,
-            **kwargs,
-            )
-
     def _start(self, /) -> Iterator[bool]:
         while True:
             secs = perf_counter()
