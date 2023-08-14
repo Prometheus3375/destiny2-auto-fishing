@@ -25,16 +25,16 @@ class Fisher(Configurable, config_group=''):
             do_initial_cast: bool = True,
             ):
         """
-        :param fishing_method: a method of fishing which used
+        :param fishing_method: A method of fishing which used
           to cast the fishing rod and catch fish.
-        :param anti_afk: an instance of :class:`AntiAFK` or ``None``.
+        :param anti_afk: An instance of :class:`AntiAFK` or ``None``.
           This instance is used to perform actions preventing the game to consider a player as AFK.
           If ``None``, then anti-AFK actions are not performed.
-        :param fish_limit: the maximum number of fish to catch.
+        :param fish_limit: The maximum number of fish to catch.
           People reported that fish can disappear if there is ~60 uncollected fish.
           Put ``inf`` to disable this limit.
           Defaults to 50.
-        :param do_initial_cast: whether to cast the fishing rod at the start.
+        :param do_initial_cast: Whether to cast the fishing rod at the start.
           Defaults to ``True``.
         """
         assert isinstance(fishing_method, BaseMethod)

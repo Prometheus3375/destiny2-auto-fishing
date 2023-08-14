@@ -72,15 +72,15 @@ class BaseMethod(Configurable, config_group='fishing-method'):
             log_directory_path: str = '',
             ):
         """
-        :param interact_key: a key that is used to catch fish and cast the fishing rod.
-        :param is_mouse_button: should be ``True`` if ``interact_key`` is a mouse button
+        :param interact_key: A key that is used to catch fish and cast the fishing rod.
+        :param is_mouse_button: Should be ``True`` if ``interact_key`` is a mouse button
           and ``False`` otherwise.
-        :param delay_after_catch: time in seconds to wait after catch
+        :param delay_after_catch: Time in seconds to wait after catch
           before casting the fishing rod.
           Defaults to 3.3.
-        :param cast_duration: time in seconds to hold interact key to cast the fishing rod.
+        :param cast_duration: Time in seconds to hold interact key to cast the fishing rod.
           Defaults to 1.
-        :param log_directory_path: path to a directory where log files will be stored.
+        :param log_directory_path: Path to a directory where log files will be stored.
           Log file is used to write debug information; its name is the current date and time.
           Defaults to the empty string which means no log directory and no current log file.
         """
@@ -161,7 +161,7 @@ class BaseMethod(Configurable, config_group='fishing-method'):
         If fish is successfully caught, yields ``True``.
         Yields ``False`` in any other case.
 
-        :param do_cast: if ``True``, then casts the fishing rod before entering the loop.
+        :param do_cast: If ``True``, then casts the fishing rod before entering the loop.
         """
         if do_cast:
             self.cast()

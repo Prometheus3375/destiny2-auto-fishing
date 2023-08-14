@@ -31,9 +31,9 @@ class AntiAFK(Configurable, config_group='anti-afk'):
             no_cast_threshold: int = 150,
             ):
         """
-        :param action_period: time in seconds how often anti-AFK actions should be done.
+        :param action_period: Time in seconds how often anti-AFK actions should be done.
           Defaults to 120, value must be in range ``[30, 300]``.
-        :param no_cast_threshold: time in seconds. If so much time passes since the last cast
+        :param no_cast_threshold: Time in seconds. If so much time passes since the last cast
           of the fishing rod, then the system will perform anti-AFK actions
           as soon as possible, without waiting for rod casts.
           Defaults to 150, value must be in range ``[30, 300]``.

@@ -34,18 +34,18 @@ class ImageMethod(BaseMethod, name='image'):
             **kwargs,
             ):
         """
-        :param bbox_x0: screen X coordinate where capturing bounding box starts.
-        :param bbox_y0: screen Y coordinate where capturing bounding box starts.
-        :param key_image_path: path to a sample image in PNG format of the interaction key.
-        :param tolerance: how far captured pixel values can differ from
+        :param bbox_x0: Screen X coordinate where capturing bounding box starts.
+        :param bbox_y0: Screen Y coordinate where capturing bounding box starts.
+        :param key_image_path: Path to a sample image in PNG format of the interaction key.
+        :param tolerance: How far captured pixel values can differ from
           pixel values of ``key_image_path`` to trigger fish catch.
-        :param screen_grab_period: time in seconds how often screen should be captured.
+        :param screen_grab_period: Time in seconds how often screen should be captured.
           **Note**: screen capturing take much time and
           this time is different for different screen resolutions.
           For example, for screen 1920x1080 it takes ~0.032 seconds to take a screenshot.
           Thus, the actual period can be higher than this value.
           Defaults to 1/30.
-        :param image_debug_path: path to a directory where captured images are stored for debug.
+        :param image_debug_path: Path to a directory where captured images are stored for debug.
           Images are saved only after catching a fish.
           Defaults to the empty string which means no debug directory.
 
