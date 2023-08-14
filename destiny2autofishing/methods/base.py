@@ -72,7 +72,7 @@ class BaseMethod(Configurable, config_group='fishing-method'):
         :param cast_duration: time in seconds to hold interact key to cast the fishing rod.
           Defaults to 1.
         :param log_directory_path: path to a directory where log files will be stored.
-          Log file is used to write debug information, its name is the current date and time.
+          Log file is used to write debug information; its name is the current date and time.
           Defaults to the empty string which means no log directory and no current log file.
         :param anti_afk: an instance of :class:`AntiAFK` or ``None``.
           This instance is used to perform actions preventing the game to consider a player as AFK.
