@@ -1,6 +1,7 @@
 from collections.abc import Callable
 from dataclasses import dataclass
 from inspect import Parameter, signature
+from os.path import abspath
 from tomllib import load
 from typing import Any, Self, final
 
@@ -95,6 +96,35 @@ class ConfigParameter:
         )
 
 
+class Config:
+    """
+    A holder of path to the configuration file and its parameters.
+    """
+    __slots__ = '_path', '_parameters'
+
+    def __init__(self, path: str, /):
+        """
+        Initializes :class:`Config` from configuration file at the specified path.
+        """
+        self._path = abspath(path)
+        with open(path, 'rb') as f:
+            self._parameters = load(f)
+
+    @property
+    def path(self, /):
+        """
+        Path of this configuration file.
+        """
+        return self._path
+
+    @property
+    def params(self, /):
+        """
+        Parameters of this configuration file.
+        """
+        return self._parameters
+
+
 class Configurable:
     """
     Base class for all configurable classes.
@@ -178,12 +208,4 @@ def generate_config(path_to_config: str, /):
             f.write(cls.config_text())
 
 
-def parse_config(path_to_config: str, /) -> dict[str, Any]:
-    """
-    Parses configuration file to configuration dictionary.
-    """
-    with open(path_to_config, 'rb') as f:
-        return load(f)
-
-
-__all__ = 'ConfigParameter', 'Configurable', 'generate_config', 'parse_config'
+__all__ = 'ConfigParameter', 'Config', 'Configurable', 'generate_config'
