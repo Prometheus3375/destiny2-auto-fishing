@@ -158,8 +158,8 @@ class Configurable:
         """
         raise NotImplementedError
 
-    @classmethod
-    def from_config(cls, config: Config, /) -> Self:
+    @staticmethod
+    def from_config(config: Config, /) -> Any:
         """
         Creates an instance of this class from a configuration file.
         """
