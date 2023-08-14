@@ -78,7 +78,7 @@ class Fisher(Configurable, config_group=''):
 
             if loop_anti_afk:
                 print('Anti AFK is enabled; the script continues to run until terminated manually')
-                for _ in anti_afk.loop_actions():
+                for _ in self.anti_afk.loop_actions():
                     if not thread.is_alive():
                         print('Enter is pressed')
                         break
