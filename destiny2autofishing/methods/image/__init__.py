@@ -25,6 +25,9 @@ class ImageMethod(BaseMethod, name='image'):
             key_image_path: str,
             tolerance: int,
             screen_grab_period: float = 1 / 30,
+            # Ideal catch button stays for 12 frames in 30 FPS video,
+            # but there are only 3 frames where interact button is solid.
+            # Thus, minimal screen grab period should be at least 0.05.
             image_debug_path: str = '',
             **kwargs,
             ):
@@ -32,7 +35,8 @@ class ImageMethod(BaseMethod, name='image'):
         :param bbox_x0: screen X coordinate where capturing bounding box starts.
         :param bbox_y0: screen Y coordinate where capturing bounding box starts.
         :param key_image_path: path to a sample image in PNG format of the interaction key.
-        :param tolerance: how far pixel values can be from the desired ones.
+        :param tolerance: how far captured pixel values can differ from
+          pixel values of ``key_image_path`` to trigger fish catch.
         :param screen_grab_period: time in seconds how often screen should be captured.
           **Note**: screen capturing take much time and
           this time is different for different screen resolutions.
@@ -42,7 +46,8 @@ class ImageMethod(BaseMethod, name='image'):
         :param: image_debug_path: path to a directory where captured images are stored for debug.
           Images are saved only after catching a fish.
           Defaults to the empty string which means no debug directory.
-        :param kwargs: refer to :class:`BaseMethod` for additional settings.
+
+        Any additionally passed keyword arguments are passed to :class:`BaseMethod` constructor.
         """
         assert isinstance(bbox_x0, int) and bbox_x0 >= 0
         assert isinstance(bbox_y0, int) and bbox_y0 >= 0
@@ -127,7 +132,7 @@ class ImageMethod(BaseMethod, name='image'):
             yield do_catch
             self._log('Difference: {0}; do catch: {1}', diff, do_catch)
             if self.image_debug_path and do_catch:
-                # colons are not allowed in file names
+                # Colons are not allowed in file names
                 dt = current_datetime_ms_str().replace(':', '-')
                 img.save(f'{self.image_debug_path}/{diff:03} {dt}.png')
 
