@@ -1,10 +1,11 @@
 from collections.abc import Iterator
 from time import perf_counter, sleep
 
+from .configurator import ConfigParameter, Configurable
 from .controls import press_key
 
 
-class AntiAFK:
+class AntiAFK(Configurable, config_group='anti-afk'):
     """
     A system to perform anti-AFK actions.
 
@@ -81,6 +82,10 @@ class AntiAFK:
             self.act(perf_counter())
             yield None
             sleep(1)
+
+    @staticmethod
+    def config_parameters() -> list[ConfigParameter]:
+        return ConfigParameter.function_params(AntiAFK.__init__)
 
 
 __all__ = 'AntiAFK',
