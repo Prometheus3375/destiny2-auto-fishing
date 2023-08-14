@@ -7,20 +7,14 @@ from PIL.ImageGrab import grab
 
 from .functions import *
 from ..base import BaseMethod
+from ...configurator import ConfigParameter
 from ...functions import current_datetime_ms_str
 
 
-# Ideal catch button stays for 12 frames in 30 FPS video,
-# but there are only 3 frames where interact button is solid.
-# Thus, minimal screen grab period should be at least 0.05.
-
-
-class ImageMethod(BaseMethod):
+class ImageMethod(BaseMethod, name='image'):
     """
     Fishing method which uses screen capture to detect an opportunity of fish catch.
     """
-    name = 'image'
-
     __slots__ = 'key_matrix', 'tolerance', 'bbox', 'screen_grap_period', 'image_debug_path'
 
     def __init__(
@@ -139,6 +133,10 @@ class ImageMethod(BaseMethod):
 
             delay = secs + self.screen_grap_period - default_timer()
             if delay > 0: sleep(delay)
+
+    @staticmethod
+    def config_parameters() -> list[ConfigParameter]:
+        return ConfigParameter.function_params(ImageMethod.__init__)
 
 
 __all__ = 'ImageMethod',
