@@ -17,6 +17,8 @@ class ImageMethod(BaseMethod, name='image'):
     """
     __slots__ = 'key_matrix', 'tolerance', 'bbox', 'screen_grap_period', 'image_debug_path'
 
+    file_arguments = {'key_image_path'}
+
     def __init__(
             self,
             /,
