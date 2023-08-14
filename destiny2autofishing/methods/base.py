@@ -1,6 +1,6 @@
 import os
 from collections.abc import Iterator, Set
-from os.path import join
+from os.path import dirname, join
 from time import sleep
 
 from ..anti_afk import AntiAFK
@@ -195,7 +195,7 @@ class BaseMethod(Configurable, config_group='fishing-method'):
         cls = BaseMethod.__name2cls[method_name]
         for arg in cls.file_arguments:
             original_path = kwargs[arg]
-            config_dir_path = join(config.path, original_path)
+            config_dir_path = join(dirname(config.path), original_path)
             located = locate_file(original_path, config_dir_path)
             if located is None:
                 raise ValueError(
