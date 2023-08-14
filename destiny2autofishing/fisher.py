@@ -54,6 +54,9 @@ class Fisher(Configurable, config_group=''):
         """
         fish_count = 0
         try:
+            print(f'Fish limit is set to {self.fish_limit}')
+            print('Anti-AFK is enabled' if self.anti_afk else 'Anti-AFK is disabled')
+            print(f'Using fishing method {self.fishing_method.name!r}')
             print('Switch to Destiny 2 window. Ensure it is active while script is running')
 
             for time in range(5, 0, -1):
@@ -77,7 +80,7 @@ class Fisher(Configurable, config_group=''):
                     break
 
             if loop_anti_afk:
-                print('Anti AFK is enabled; the script continues to run until terminated manually')
+                print('Anti-AFK is enabled; the script continues to run until terminated manually')
                 for _ in self.anti_afk.loop_actions():
                     if not thread.is_alive():
                         print('Enter is pressed')
