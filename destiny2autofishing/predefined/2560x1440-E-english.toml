@@ -1,0 +1,11 @@
+[fishing-method]
+method_name = 'image'
+interact_key = 'e'
+is_mouse_button = false
+
+
+[fishing-method.image]
+bbox_x0 = 1182
+bbox_y0 = 972
+key_image_path = '2560x1440-E.png'
+tolerance = 85
