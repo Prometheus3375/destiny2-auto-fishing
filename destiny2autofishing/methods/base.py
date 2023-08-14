@@ -1,5 +1,5 @@
 import os
-from collections.abc import Iterator
+from collections.abc import Iterator, Set
 from time import sleep
 
 from ..anti_afk import AntiAFK
@@ -18,6 +18,11 @@ class BaseMethod(Configurable, config_group='fishing-method'):
     Name of the fishing method.
     """
 
+    __name2cls: dict[str, type['BaseMethod']] = {}
+    """
+    Maps method name to its class.
+    """
+
     # noinspection PyMethodOverriding
     def __init_subclass__(cls, /, *, name: str):
         if not (isinstance(name, str) and name):
@@ -26,17 +31,12 @@ class BaseMethod(Configurable, config_group='fishing-method'):
                 f"got {name!r} of type {type(name)}"
                 )
 
-        present = None
-        for sub_cls in BaseMethod.__subclasses__():
-            if sub_cls is cls: continue
-            if sub_cls.name == name:
-                present = sub_cls
-                break
-
+        present = BaseMethod.__name2cls.get(name)
         if present is not None:
             raise ValueError(f'method name {present.name!r} is already used by {present}')
 
         cls.name = name
+        BaseMethod.__name2cls[name] = cls
         super().__init_subclass__(config_group=f'{BaseMethod.config_group}.{name}')
 
     __slots__ = (
