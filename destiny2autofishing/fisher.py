@@ -1,8 +1,9 @@
 from threading import Thread
 from time import sleep
+from typing import Self
 
-from .configurator import ConfigParameter, Configurable
 from .anti_afk import AntiAFK
+from .configurator import Config, ConfigParameter, Configurable
 from .methods.base import BaseMethod
 
 
@@ -101,6 +102,19 @@ class Fisher(Configurable, config_group=''):
                 ),
             ConfigParameter('enable_anti_afk', bool, enable_anti_afk_doc, True),
             ]
+
+    @classmethod
+    def from_config(cls, config: Config, /) -> Self:
+        kwargs = {
+            k: v for k, v in config.params.items()
+            if not isinstance(v, dict)
+            }
+
+        return cls(
+            BaseMethod.from_config(config),
+            AntiAFK.from_config(config) if kwargs.pop('enable_anti_afk', True) else None,
+            **kwargs,
+            )
 
 
 __all__ = 'Fisher',
