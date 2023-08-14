@@ -1,14 +1,12 @@
 import os
 from collections.abc import Iterator
 from time import sleep
-from typing import TypeVar
 
 from ..anti_afk import AntiAFK
 from ..configurator import ConfigParameter, Configurable
 from ..controls import *
 from ..functions import current_datetime_ms_str, current_datetime_str
 
-BaseMethodT = TypeVar('BaseMethodT', bound='BaseMethod')
 
 class BaseMethod(Configurable, config_group='fishing-method'):
     """
@@ -17,27 +15,29 @@ class BaseMethod(Configurable, config_group='fishing-method'):
 
     name: str
     """
-    Name of fishing method.
+    Name of the fishing method.
     """
 
-    __name2class: dict[str, BaseMethodT] = {}
-
-    def __init_subclass__(cls, /, **kwargs):
-        name = cls.__dict__.get('name')
-        if name is None:
-            raise TypeError(f"{cls} must have attribute 'name'")
-
+    # noinspection PyMethodOverriding
+    def __init_subclass__(cls, /, *, name: str):
         if not (isinstance(name, str) and name):
             raise TypeError(
-                f"attribute 'name' of {cls} must be a non-empty string, "
+                f"parameter 'name' of {cls} must be a non-empty string, "
                 f"got {name!r} of type {type(name)}"
                 )
 
-        present = cls.__name2class.get(name)
+        present = None
+        for sub_cls in BaseMethod.__subclasses__():
+            if sub_cls is cls: continue
+            if sub_cls.name == name:
+                present = sub_cls
+                break
+
         if present is not None:
             raise ValueError(f'method name {present.name!r} is already used by {present}')
 
-        cls.__name2class[name] = cls
+        cls.name = name
+        super().__init_subclass__(config_group=f'{BaseMethod.config_group}.{name}')
 
     __slots__ = (
         '_press',
