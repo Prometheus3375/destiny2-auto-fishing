@@ -176,7 +176,7 @@ class Configurable:
         if cls.config_group:
             text = [f'\n\n[{cls.config_group}]\n\n{parameters_str}']
         else:
-            text = [f'{parameters_str}']
+            text = [parameters_str]
 
         for sub in cls.__subclasses__():
             text.append(sub.config_text())
