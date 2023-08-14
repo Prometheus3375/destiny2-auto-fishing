@@ -52,8 +52,8 @@ class BaseMethod(Configurable, config_group='fishing-method'):
     def __init__(
             self,
             /,
-            interact_key: str = 'e',
-            is_mouse_button: bool = False,
+            interact_key: str,
+            is_mouse_button: bool,
             delay_after_catch: float = 3.3,
             # After catch there are ~100 frames in 30 FPS video
             # before interact button appears again
@@ -65,9 +65,7 @@ class BaseMethod(Configurable, config_group='fishing-method'):
             ):
         """
         :param interact_key: a key that is used to catch fish and cast the fishing rod.
-          Defaults to ``e``.
         :param is_mouse_button: should be ``True`` if ``interact_key`` is a mouse button.
-          Defaults to ``False``.
         :param delay_after_catch: time in seconds to wait after catch
           before casting the fishing rod.
           Defaults to 3.3.
