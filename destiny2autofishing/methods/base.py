@@ -4,13 +4,13 @@ from time import sleep
 from typing import TypeVar
 
 from ..anti_afk import AntiAFK
+from ..configurator import ConfigParameter, Configurable
 from ..controls import *
 from ..functions import current_datetime_ms_str, current_datetime_str
 
 BaseMethodT = TypeVar('BaseMethodT', bound='BaseMethod')
 
-
-class BaseMethod:
+class BaseMethod(Configurable, config_group='fishing-method'):
     """
     Base method for all fishing methods.
     """
@@ -156,6 +156,21 @@ class BaseMethod:
 
             if self.anti_afk: self.anti_afk.act_based_on_catch(do_catch)
             yield False
+
+    @staticmethod
+    def config_parameters() -> list[ConfigParameter]:
+        excluded_params = {'anti_afk'}
+
+        method_names = ', '.join(repr(sub.name) for sub in BaseMethod.__subclasses__())
+        method_name_doc = f'Name of the fishing method. Possible values: {method_names}.'
+        return [
+            ConfigParameter('method_name', str, method_name_doc),
+            *(
+                cp
+                for cp in ConfigParameter.function_params(BaseMethod.__init__)
+                if cp.name not in excluded_params
+                ),
+            ]
 
 
 __all__ = 'BaseMethod',
