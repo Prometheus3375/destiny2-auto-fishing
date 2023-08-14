@@ -194,6 +194,8 @@ _config_header = f"""
 # A string -- 'anything here' or "anything here".
 # Any {CONFIG_PLACEHOLDER} must be replaced with a value of respective type.
 # Any optional parameter can be removed from this configuration.
+# Parameters up to the first square brackets
+# can be overwritten via arguments passed to the script.
 
 
 """.lstrip()
