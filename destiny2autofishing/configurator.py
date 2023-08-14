@@ -1,7 +1,8 @@
 from collections.abc import Callable
+from dataclasses import dataclass
 from inspect import Parameter, signature
 from tomllib import load
-from typing import Any, NamedTuple, Self, final
+from typing import Any, Self, final
 
 from destiny2autofishing.functions import extract_param_docs
 
@@ -47,7 +48,8 @@ def format_comment(comment: str, /) -> str:
     return ''.join(lines)
 
 
-class ConfigParameter(NamedTuple):
+@dataclass(slots=True)
+class ConfigParameter:
     """
     A data holder of configuration parameter.
     """
