@@ -24,7 +24,6 @@ def extract_param_docs(obj: object, /) -> dict[str, str]:
     """
     Parses ``__doc__`` attribute of passed object and returns a mapping
     with a correspondence between parameter names and their descriptions.
-    The first character of every description is capitalized.
     """
     if (docs := obj.__doc__) is None: return {}
 
@@ -40,8 +39,7 @@ def extract_param_docs(obj: object, /) -> dict[str, str]:
         if line.startswith('  ', indent_size):
             param_doc.append(' '.join(line.split()))
         elif param_name:
-            doc = ' '.join(param_doc)
-            params[param_name] = doc[0].upper() + doc[1:]
+            params[param_name] = ' '.join(param_doc)
             param_name = ''
             param_doc = []
 
