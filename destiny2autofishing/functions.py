@@ -1,4 +1,5 @@
 from datetime import datetime
+from os.path import isfile
 
 
 def current_datetime_ms_str() -> str:
@@ -52,8 +53,19 @@ def extract_param_docs(obj: object, /) -> dict[str, str]:
     return params
 
 
+def locate_file(*paths: str) -> str | None:
+    """
+    For every passed path checks if it is a file.
+    Returns the first path which is a file.
+    If none of passed paths is a file, returns ``None``.
+    """
+    for path in paths:
+        if isfile(path): return path
+
+
 __all__ = (
     'current_datetime_ms_str',
     'current_datetime_str',
     'extract_param_docs',
+    'locate_file',
     )
