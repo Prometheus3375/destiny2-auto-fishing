@@ -22,6 +22,9 @@ class BaseMethod(Configurable, config_group='fishing-method'):
     file_arguments: Set[str] = frozenset()
     """
     A set of arguments names which accept file paths.
+    It is used to try several possible file locations
+    before supplying these arguments to constructor
+    when creating a fishing method from a configuration file.
     """
 
     __name2cls: dict[str, type['BaseMethod']] = {}
@@ -70,7 +73,8 @@ class BaseMethod(Configurable, config_group='fishing-method'):
             ):
         """
         :param interact_key: a key that is used to catch fish and cast the fishing rod.
-        :param is_mouse_button: should be ``True`` if ``interact_key`` is a mouse button.
+        :param is_mouse_button: should be ``True`` if ``interact_key`` is a mouse button
+          and ``False`` otherwise.
         :param delay_after_catch: time in seconds to wait after catch
           before casting the fishing rod.
           Defaults to 3.3.
