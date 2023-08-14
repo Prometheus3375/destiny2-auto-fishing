@@ -1,5 +1,6 @@
 import os
 from collections.abc import Iterator, Set
+from os.path import join
 from time import sleep
 
 from ..anti_afk import AntiAFK
@@ -16,6 +17,11 @@ class BaseMethod(Configurable, config_group='fishing-method'):
     name: str
     """
     Name of the fishing method.
+    """
+
+    file_arguments: Set[str] = frozenset()
+    """
+    A set of arguments names which accept file paths.
     """
 
     __name2cls: dict[str, type['BaseMethod']] = {}
