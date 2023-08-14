@@ -45,7 +45,7 @@ class ImageMethod(BaseMethod, name='image'):
           For example, for screen 1920x1080 it takes ~0.032 seconds to take a screenshot.
           Thus, the actual period can be higher than this value.
           Defaults to 1/30.
-        :param: image_debug_path: path to a directory where captured images are stored for debug.
+        :param image_debug_path: path to a directory where captured images are stored for debug.
           Images are saved only after catching a fish.
           Defaults to the empty string which means no debug directory.
 
