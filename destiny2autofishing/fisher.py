@@ -58,7 +58,7 @@ class Fisher(Configurable, config_group=''):
             print(f'Fish limit is set to {self.fish_limit}')
             print('Anti-AFK is enabled' if self.anti_afk else 'Anti-AFK is disabled')
             print(f'Using fishing method {self.fishing_method.name!r}')
-            print('Switch to Destiny 2 window. Ensure it is active while script is running')
+            print('\nSwitch to Destiny 2 window. Ensure it is active while script is running')
 
             for time in range(5, 0, -1):
                 print(f'Starting in {time}s', end='\r')
