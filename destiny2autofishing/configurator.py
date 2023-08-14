@@ -129,8 +129,8 @@ class Configurable:
     """
     Base class for all configurable classes.
 
-    Subclasses must implement method ``config_parameters`` and
-    specify parameter ``config_group`` on subclassing.
+    Subclasses must implement methods ``config_parameters`` and ``from_config``
+    and specify parameter ``config_group`` on subclassing.
     """
 
     config_group: str
@@ -155,6 +155,13 @@ class Configurable:
     def config_parameters() -> list[ConfigParameter]:
         """
         Returns a list of :class:`ConfigParameter` necessary to customize this class.
+        """
+        raise NotImplementedError
+
+    @classmethod
+    def from_config(cls, config: Config, /) -> Self:
+        """
+        Creates an instance of this class from a configuration file.
         """
         raise NotImplementedError
 
