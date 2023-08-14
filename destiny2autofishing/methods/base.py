@@ -4,9 +4,9 @@ from os.path import join
 from time import sleep
 
 from ..anti_afk import AntiAFK
-from ..configurator import ConfigParameter, Configurable
+from ..configurator import Config, ConfigParameter, Configurable
 from ..controls import *
-from ..functions import current_datetime_ms_str, current_datetime_str
+from ..functions import current_datetime_ms_str, current_datetime_str, locate_file
 
 
 class BaseMethod(Configurable, config_group='fishing-method'):
@@ -182,6 +182,27 @@ class BaseMethod(Configurable, config_group='fishing-method'):
             ConfigParameter('method_name', str, method_name_doc),
             *ConfigParameter.function_params(BaseMethod.__init__),
             ]
+
+    @staticmethod
+    def from_config(config: Config, /) -> 'BaseMethod':
+        kwargs = config.params[BaseMethod.config_group].copy()
+        method_name = kwargs.pop('method_name')
+        kwargs |= kwargs.pop(method_name)
+        cls = BaseMethod.__name2cls[method_name]
+        for arg in cls.file_arguments:
+            original_path = kwargs[arg]
+            config_dir_path = join(config.path, original_path)
+            located = locate_file(original_path, config_dir_path)
+            if located is None:
+                raise ValueError(
+                    f'cannot locate a file for parameter {arg!r} '
+                    f'of {method_name!r} fishing method; '
+                    f'tried locations: {original_path!r} and {config_dir_path!r}'
+                    )
+
+            kwargs[arg] = located
+
+        return cls(**kwargs)
 
 
 __all__ = 'BaseMethod',
