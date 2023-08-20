@@ -102,7 +102,7 @@ class BaseMethod(Configurable, config_group='fishing-method'):
             os.makedirs(log_directory_path, exist_ok=True)
             self.log_file = os.path.join(
                 log_directory_path,
-                current_datetime_str().replace(':', '-'),
+                current_datetime_str().replace(':', '-') + '.txt',
                 )
         else:
             self.log_file = None
