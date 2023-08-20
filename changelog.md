@@ -4,7 +4,7 @@
 
 Initial release.
 
-## Features
+### Features
 
 - Working fishing loop.
 - Anti-AFK system.
