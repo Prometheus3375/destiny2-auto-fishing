@@ -22,14 +22,13 @@ def from_command_line():
         help='If specified, the script shows this help message and exits.',
         )
 
-    # todo uncomment when version will be added
-    # parser.add_argument(
-    #     '-V',
-    #     '--version',
-    #     action='version',
-    #     version=f'{destiny2autofishing.__name__} {destiny2autofishing.version}',
-    #     help='If specified, the script prints its version and exits.',
-    #     )
+    parser.add_argument(
+        '-v',
+        '--version',
+        action='version',
+        version=f'{destiny2autofishing.__name__} {destiny2autofishing.version}',
+        help='If specified, the script prints its version and exits.',
+        )
 
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument(
