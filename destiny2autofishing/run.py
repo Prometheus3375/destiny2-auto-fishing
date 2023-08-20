@@ -37,7 +37,7 @@ def from_command_line():
         help='Path to the configuration file.\n'
              'If it exists, the script starts fishing with this configuration.\n'
              'Otherwise, the script generates a sample '
-             'configuration file at the specified path;\n'
+             'configuration file at the specified path and exists;\n'
              'any other argument is ignored in this case.',
         metavar='CONFIG_FILE_PATH',
         )
