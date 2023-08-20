@@ -14,7 +14,8 @@ Inspired by [D2SemiAutoFisher](https://github.com/Chadhendrixs/D2SemiAutoFisher)
 
 1. Install [Python 3.11.4](https://www.python.org/downloads/release/python-3114/)
    or higher version of Python 3.11.
-2. Run `pip install -U https://github.com/Prometheus3375/destiny2-auto-fishing/archive/latest.zip`
+2. Open PowerShell.
+3. Run `pip install -U https://github.com/Prometheus3375/destiny2-auto-fishing/archive/latest.zip`
    to install the latest version of the script.
 
 # Usage
