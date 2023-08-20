@@ -14,27 +14,20 @@ Inspired by [D2SemiAutoFisher](https://github.com/Chadhendrixs/D2SemiAutoFisher)
 
 1. Install [Python 3.11.4](https://www.python.org/downloads/release/python-3114/)
    or higher version of Python 3.11.
-2. [Download](https://github.com/Prometheus3375/destiny2-auto-fishing/archive/refs/heads/main.zip)
-   ZIP archive of the project.
-3. Extract this archive to any empty directory.
-4. Open this directory in Explorer, type `powershell` in address line and press Enter.
-5. (Optional) Initialize and activate virtual environment.
-    - Run `python -m venv .venv` to initialize.
-    - Run `.\.venv\Scripts\Activate.ps1` to activate.
-6. Run `python -m pip install -U pip setuptools wheel` to update building tools.
-7. Run `python -m pip install -r requirements.txt` to install dependencies.
+2. Run `pip install -U https://github.com/Prometheus3375/destiny2-auto-fishing/archive/latest.zip`
+   to install the latest version of the script.
 
 # Usage
 
 ## Running the tool
 
-1. Open project directory in Explorer, type `powershell` in address line and press Enter.
-2. If there is a virtual environment (installation step 5), activate it.
-3. Switch your keyboard layout to English (USA).
-4. Start the script:
+1. Open PowerShell.
+2. Switch your keyboard layout to English (USA).
+3. Start the script:
     - Run `python -m destiny2autofishing -p 1920x1080-E-english` to start the script
       using predefined configuration for screen with resolution 1920x1080
       and Destiny 2 with `E` as interaction key and English localization.
+      - Run `python -m destiny2autofishing --help` to view available predefined configurations.
     - Run `python -m destiny2autofishing -c 'path-to-configuration-file'` to start the script
       using configuration from a file located at `path-to-configuration-file`.
 
@@ -86,3 +79,27 @@ To check if these actions indeed prevent kicking to orbit,
 I made a small script to perform these actions every minute,
 loaded into EDZ and left the script and the game running while I was sleeping.
 After I woke up, my character was still in EDZ.
+
+# Development
+
+## Project initialization
+
+1. Install [Python 3.11.4](https://www.python.org/downloads/release/python-3114/)
+   or higher version of Python 3.11.
+2. Clone this project.
+3. Open terminal and change current working directory to the root of this repository.
+4. Initialize virtual environment and activate it according to the
+   [tutorial](https://docs.python.org/3/library/venv.html).
+5. Run `python -m pip install -U pip setuptools wheel build` to install building tools.
+6. Run `python -m pip install -r requirements.txt` to install dependencies.
+
+## Releasing new version
+
+1. Increase version according to [specification](https://peps.python.org/pep-0440/)
+   in `destiny2autofishing/__init__.py` and commit changes.
+2. List all changes made in `changelog.md` and commit changes.
+3. Run `python -m build`.
+4. Delete tag `latest` on remote.
+5. Add tag with new version and tag `latest` on the very last commit.
+6. Push to remote.
+7. Create new release attaching `.whl` file created inside directory `dist`.
