@@ -216,5 +216,7 @@ def generate_config(path_to_config: str, /):
         for cls in reversed(Configurable.__subclasses__()):
             f.write(cls.config_text())
 
+    print(f'Sample configuration file is generated at {abspath(path_to_config)!r}')
+
 
 __all__ = 'ConfigParameter', 'Config', 'Configurable', 'generate_config'
