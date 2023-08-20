@@ -1,4 +1,5 @@
 from argparse import ArgumentParser, RawTextHelpFormatter
+from os.path import exists, isfile
 
 
 def from_command_line():
@@ -103,12 +104,18 @@ def from_command_line():
         fish_limit=args.fish_limit,
         )
 
+    from destiny2autofishing.configurator import Config, generate_config
+
     if predefined_specified := getattr(args, 'predefined_config', None):
         config_file = available_configs[predefined_specified]
     else:
         config_file = args.config_file
+        if not exists(config_file):
+            generate_config(config_file)
+            return
 
-    from destiny2autofishing.configurator import Config
+        if not isfile(config_file):
+            raise OSError('Configuration file must be a .toml file, not a directory')
 
     config = Config(config_file)
     for k, v in overwritten.items():
