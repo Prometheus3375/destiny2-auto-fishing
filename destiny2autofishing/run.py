@@ -2,9 +2,12 @@ from argparse import ArgumentParser, RawTextHelpFormatter
 from os.path import exists, isfile
 
 
-def from_command_line():
+def from_command_line(include_predefined: bool, /):
     """
     Starts fishing from command line arguments.
+    :param include_predefined: If ``True``, then command line arguments will include
+      an argument to specify a predefined configuration;
+      this argument will be mutually exclusive with argument for config file.
     """
     import destiny2autofishing
 
@@ -30,10 +33,7 @@ def from_command_line():
         help='If specified, the script prints its version and exits.',
         )
 
-    group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument(
-        '-c',
-        '--config-file',
+    config_file_arg_kw = dict(
         help='Path to the configuration file.\n'
              'If it exists, the script starts fishing with this configuration.\n'
              'Otherwise, the script generates a sample '
@@ -42,17 +42,25 @@ def from_command_line():
         metavar='CONFIG_FILE_PATH',
         )
 
-    from destiny2autofishing.predefined import available_configs
+    if include_predefined:
+        from destiny2autofishing.predefined import available_configs
 
-    predefined_names = '\n  '.join(map(repr, available_configs))
-    group.add_argument(
-        '-p',
-        '--predefined-config',
-        choices=available_configs,
-        help='Name of the predefined configuration to use for fishing.\n'
-             f'Available configurations:\n  {predefined_names}',
-        metavar='PREDEFINED_CONFIG_NAME',
-        )
+        group = parser.add_mutually_exclusive_group(required=True)
+        group.add_argument('-c', '--config-file', **config_file_arg_kw)
+
+        predefined_names = '\n  '.join(map(repr, available_configs))
+        group.add_argument(
+            '-p',
+            '--predefined-config',
+            choices=available_configs,
+            help='Name of the predefined configuration to use for fishing.\n'
+                 f'Available configurations:\n  {predefined_names}',
+            metavar='PREDEFINED_CONFIG_NAME',
+            )
+    else:
+        parser.add_argument('config-file', **config_file_arg_kw)
+        # Define this variable to supress error about unreferenced variable
+        available_configs = None
 
     parser.add_argument(
         'fish_limit',
