@@ -58,7 +58,7 @@ def from_command_line(include_predefined: bool, /):
             metavar='PREDEFINED_CONFIG_NAME',
             )
     else:
-        parser.add_argument('config-file', **config_file_arg_kw)
+        parser.add_argument('config_file', **config_file_arg_kw)
         # Define this variable to supress error about unreferenced variable
         available_configs = None
 
