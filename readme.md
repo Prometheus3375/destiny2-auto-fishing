@@ -29,6 +29,8 @@ Inspired by [D2SemiAutoFisher](https://github.com/Chadhendrixs/D2SemiAutoFisher)
       using predefined configuration for screen with resolution 1920x1080
       and Destiny 2 with `E` as interaction key and English localization.
       - Run `python -m destiny2autofishing --help` to view available predefined configurations.
+      - If you have not found your resolution/key/localization in the list of available,
+        refer to section `Making custom configuration file` below.
     - Run `python -m destiny2autofishing -c 'path-to-configuration-file'` to start the script
       using configuration from a file located at `path-to-configuration-file`.
 
@@ -48,9 +50,11 @@ Tips for PowerShell:
 ## Making custom configuration file
 
 [//]: # (Specify full URL, so that views on other platforms will contain valid URL)
-Refer to
-[config-guide.md](https://github.com/Prometheus3375/destiny2-auto-fishing/blob/main/resources/config-guide.md)
-for guidelines.
+
+A usual case for creating a custom configuration file is the absense of predefined configuration
+for your screen resolution, interaction key or localization.
+Complete guidelines for creating a custom configuration file are written
+[here](https://github.com/Prometheus3375/destiny2-auto-fishing/blob/main/resources/config-guide.md).
 
 ## Anti-AFK system
 
