@@ -38,7 +38,7 @@ class ImageMethod(BaseMethod, name='image'):
         :param bbox_y0: Screen Y coordinate where capturing bounding box starts.
         :param key_image_path: Path to a sample image in PNG format of the interaction key.
         :param tolerance: How far captured pixel values can differ from
-          pixel values of ``key_image_path`` to trigger fish catch.
+          the pixel values of the image at ``key_image_path`` to trigger fish catch.
         :param screen_grab_period: Time in seconds how often screen should be captured.
           **Note**: screen capturing take much time and
           this time is different for different screen resolutions.
