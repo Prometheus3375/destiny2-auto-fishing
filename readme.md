@@ -80,6 +80,7 @@ To check if these actions indeed prevent kicking to orbit,
 I made a small script to perform these actions every minute,
 loaded into EDZ and left the script and the game running while I was sleeping.
 After I woke up, my character was still in EDZ.
+Later, I got the same results with the whole fishing script on Nessus with the period in 2 minutes.
 
 # Development
 
