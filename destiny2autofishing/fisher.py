@@ -7,7 +7,10 @@ from .methods.base import BaseMethod
 
 
 def _ask_input():
-    _ = input('Press Enter to exit\n')
+    try:
+        _ = input('Press Enter to exit\n')
+    except EOFError:
+        pass
 
 
 class Fisher(Configurable, config_group=''):
