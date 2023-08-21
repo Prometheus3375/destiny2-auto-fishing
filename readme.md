@@ -28,9 +28,9 @@ Inspired by [D2SemiAutoFisher](https://github.com/Chadhendrixs/D2SemiAutoFisher)
     - Run `python -m destiny2autofishing -p 1920x1080-E-english` to start the script
       using predefined configuration for screen with resolution 1920x1080
       and Destiny 2 with `E` as interaction key and English localization.
-      - Run `python -m destiny2autofishing --help` to view available predefined configurations.
-      - If you have not found your resolution/key/localization in the list of available,
-        refer to section `Making custom configuration file` below.
+        - Run `python -m destiny2autofishing --help` to view available predefined configurations.
+        - If you have not found your resolution/key/localization in the list of available,
+          refer to section `Making custom configuration file` below.
     - Run `python -m destiny2autofishing -c 'path-to-configuration-file'` to start the script
       using configuration from a file located at `path-to-configuration-file`.
 
