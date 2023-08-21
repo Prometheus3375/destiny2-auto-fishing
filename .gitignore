@@ -9,7 +9,7 @@ __pycache__/
 
 # Build
 /*.egg-info/
-/dist/
+/.dist/
 
 # PyCharm
 /.idea/

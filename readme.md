@@ -104,8 +104,8 @@ Later, I got the same results with the whole fishing script on Nessus with the p
 1. Increase version according to [specification](https://peps.python.org/pep-0440/)
    in `destiny2autofishing/__init__.py` and commit changes.
 2. List all changes made in `changelog.md` and commit changes.
-3. Run `python -m build`.
+3. Run `python -m build -o ./.dist`.
 4. Delete tag `latest` on remote.
 5. Add tag with new version and tag `latest` on the very last commit.
 6. Push to remote.
-7. Create new release attaching `.whl` file created inside directory `dist`.
+7. Create new release attaching `.whl` file created inside `.dist` directory.
