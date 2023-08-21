@@ -1,9 +1,10 @@
-import os
-from argparse import ArgumentParser
-
-from destiny2autofishing.methods.image.functions import *
-
 if __name__ == '__main__':
+    from argparse import ArgumentParser
+    from os import listdir
+    from os.path import join
+    from destiny2autofishing.methods.image.functions import *
+
+
     def main():
         parser = ArgumentParser(
             description='Evaluates matrix difference between the main image and other ones '
@@ -33,8 +34,8 @@ if __name__ == '__main__':
         other_images: list[str] = args.image_file_paths
         if args.dir:
             other_images.extend(
-                os.path.join(args.dir, file)
-                for file in os.listdir(args.dir)
+                join(args.dir, file)
+                for file in listdir(args.dir)
                 if file.endswith('.png')
                 )
 
