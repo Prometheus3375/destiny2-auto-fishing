@@ -94,7 +94,7 @@ Later, I got the same results with the whole fishing script on Nessus with the p
    or higher version of Python 3.11.
 2. Clone this project.
 3. Open terminal and change current working directory to the root of this repository.
-4. Initialize virtual environment and activate it according to the
+4. Initialize virtual environment inside `.venv` directory and activate it according to the
    [tutorial](https://docs.python.org/3/library/venv.html).
 5. Run `python -m pip install -U pip setuptools wheel build` to install building tools.
 6. Run `python -m pip install -r requirements.txt` to install dependencies.
