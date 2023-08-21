@@ -33,20 +33,24 @@ def from_command_line(include_predefined: bool, /):
         help='If specified, the script prints its version and exits.',
         )
 
-    config_file_arg_kw = dict(
-        help='Path to the configuration file.\n'
-             'If it exists, the script starts fishing with this configuration.\n'
-             'Otherwise, the script generates a sample '
-             'configuration file at the specified path and exists;\n'
-             'any other argument is ignored in this case.',
-        metavar='CONFIG_FILE_PATH',
-        )
+    config_file_arg_help = (
+        'Path to the configuration file.\n'
+        'If it exists, the script starts fishing with this configuration.\n'
+        'Otherwise, the script generates a sample '
+        'configuration file at the specified path and exists;\n'
+        'any other argument is ignored in this case.'
+    )
 
     if include_predefined:
         from destiny2autofishing.predefined import available_configs
 
         group = parser.add_mutually_exclusive_group(required=True)
-        group.add_argument('-c', '--config-file', **config_file_arg_kw)
+        group.add_argument(
+            '-c',
+            '--config-file',
+            help=config_file_arg_help,
+            metavar='CONFIG_FILE_PATH',
+            )
 
         predefined_names = '\n  '.join(map(repr, available_configs))
         group.add_argument(
@@ -58,7 +62,7 @@ def from_command_line(include_predefined: bool, /):
             metavar='PREDEFINED_CONFIG_NAME',
             )
     else:
-        parser.add_argument('config_file', **config_file_arg_kw)
+        parser.add_argument('config_file', help=config_file_arg_help)
         # Define this variable to supress error about unreferenced variable
         available_configs = None
 
