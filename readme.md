@@ -46,8 +46,7 @@ it can add code and libraries for which I am not responsible.
 4. Run `.\destiny2autofishing.exe 'path-to-configuration-file'` to start the script
    using configuration from a file located at `path-to-configuration-file`.
     - There are some predefined configurations located inside `config` directory.
-
-For more information and parameters run `.\destiny2autofishing.exe --help`.
+    - For more information and parameters run `.\destiny2autofishing.exe --help`.
 
 ### As a Python module
 
@@ -57,28 +56,26 @@ For more information and parameters run `.\destiny2autofishing.exe --help`.
     - Run `python -m destiny2autofishing -p 1920x1080-E-english` to start the script
       using predefined configuration for screen with resolution 1920x1080
       and Destiny 2 with `E` as interaction key and English localization.
-        - Run `python -m destiny2autofishing --help` to view available predefined configurations.
+        - Run `python -m destiny2autofishing --help` to view
+          all available predefined configurations.
         - If you have not found your resolution/key/localization in the list of available,
           refer to section `Making custom configuration file` below.
     - Run `python -m destiny2autofishing -c 'path-to-configuration-file'` to start the script
       using configuration from a file located at `path-to-configuration-file`.
 
-For more information and parameters run `python -m destiny2autofishing --help`.
-This command can be run without installed dependencies.
-
-### Termination
+## Termination
 
 The tool can be terminated by pressing Enter after it is fully started.
 While tool is running you can freely change keyboard layout,
 but you are forced to use English (USA) before its start.
 
-### Tips for PowerShell
+## Tips for PowerShell
 
 - Use ⬆ and ⬇ keys to search for history of commands.
 - If you have copied a command, you can paste it in single click of right mouse button.
 - Press `Ctrl+C` to terminate any executing command.
 
-### Tips for Explorer
+## Tips for Explorer
 
 - Hold Shift and press right mouse button on a file/directory and select `Copy as path`
   to copy absolute path to this file/directory.
