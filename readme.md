@@ -35,11 +35,11 @@ Inspired by [D2SemiAutoFisher](https://github.com/Chadhendrixs/D2SemiAutoFisher)
 
 1. Open directory where you have unpacked the archive, in Explorer.
 2. Click on the address bar, erase everything there, type `powershell` and press Enter.
-   - Alternatively, you can click `File -> Run Windows PowerShell -> Run Windows PowerShell`.
+    - Alternatively, you can click `File -> Run Windows PowerShell -> Run Windows PowerShell`.
 3. Switch your keyboard layout to English (USA).
 4. Run `.\destiny2autofishing.exe 'path-to-configuration-file'` to start the script
    using configuration from a file located at `path-to-configuration-file`.
-   - There are some predefined configurations located inside `config` directory.
+    - There are some predefined configurations located inside `config` directory.
 
 For more information and parameters run `.\destiny2autofishing.exe --help`.
 

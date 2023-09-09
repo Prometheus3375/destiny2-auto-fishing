@@ -21,13 +21,13 @@ to achieve the same results.
    *Note*: you can copy any path listed in the sub-list above, paste inside Explorer address bar
    and press Enter to quickly navigate to these directories on your PC.
 2. Create somewhere an empty directory and open it in Explorer.
-   - If you are using executable edition of the tool, just open the directory with .exe file.
+    - If you are using executable edition of the tool, just open the directory with .exe file.
 3. Click on the address bar, erase everything there, type `powershell` and press Enter.
     - Alternatively, you can click `File -> Run Windows PowerShell -> Run Windows PowerShell`.
 4. Run `python -m destiny2autofishing -c .\config.toml`.
    This will generate a sample configuration file.
-   - Run `.\destiny2autofishing.exe .\config.toml` for executable edition of the tool.
-     Use the same command to start the tool with `config.toml` once it is completed.
+    - Run `.\destiny2autofishing.exe .\config.toml` for executable edition of the tool.
+      Use the same command to start the tool with `config.toml` once it is completed.
 5. Open created configuration file with any text editor.
 6. Replace some present `???` in front of option names with respective values from below.
     - `method_name` - put `'image'`.
@@ -86,7 +86,7 @@ game settings and specify this key instead of the mouse button.
 
 ## Adjusting tolerance
 
-**Note**: this is available only if the tools is installed as a Python module.
+**Note**: this is available only if the tool is installed as a Python module.
 
 Tolerance value specifies how far the pixel values of a captured image can differ
 from the pixel values of the image at `key_image_path` to trigger fish catch.
