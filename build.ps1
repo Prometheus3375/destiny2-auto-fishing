@@ -14,6 +14,7 @@ $Version = "v$Version"
 Write-Host "Package version is '$Version'. Press Enter to proceed"
 Read-Host
 
+git tag -d $LatestTagName
 git push origin :refs/tags/$LatestTagName
 git tag $LatestTagName
 git tag $Version
