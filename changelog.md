@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.1.0
+
+### Features
+
+- Added executable edition.
+
+### Bug fixes
+
+- Now log files from fishing methods have `.txt` extension.
+- Fixed uncaught `EOFError` in `fisher.py`.
+
+### Development
+
+- Various improvements to documentation and typing.
+- Updated import statements.
+- Updated build configuration and tools.
+
 ## 1.0.0
 
 Initial release.

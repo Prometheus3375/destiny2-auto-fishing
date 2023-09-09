@@ -12,6 +12,15 @@ Inspired by [D2SemiAutoFisher](https://github.com/Chadhendrixs/D2SemiAutoFisher)
 
 # Installation
 
+## As an executable program
+
+1. Open
+   [the latest release](https://github.com/Prometheus3375/destiny2-auto-fishing/releases/latest).
+2. Download `destiny2autofishing.zip` from Assets.
+3. Unpack this archive to any empty directory.
+
+## As a Python module
+
 1. Install [Python 3.11.4](https://www.python.org/downloads/release/python-3114/)
    or higher version of Python 3.11.
 2. Open PowerShell.
@@ -21,6 +30,20 @@ Inspired by [D2SemiAutoFisher](https://github.com/Chadhendrixs/D2SemiAutoFisher)
 # Usage
 
 ## Running the tool
+
+### As an executable program
+
+1. Open directory where you have unpacked the archive, in Explorer.
+2. Click on the address bar, erase everything there, type `powershell` and press Enter.
+    - Alternatively, you can click `File -> Run Windows PowerShell -> Run Windows PowerShell`.
+3. Switch your keyboard layout to English (USA).
+4. Run `.\destiny2autofishing.exe 'path-to-configuration-file'` to start the script
+   using configuration from a file located at `path-to-configuration-file`.
+    - There are some predefined configurations located inside `config` directory.
+
+For more information and parameters run `.\destiny2autofishing.exe --help`.
+
+### As a Python module
 
 1. Open PowerShell.
 2. Switch your keyboard layout to English (USA).
@@ -34,18 +57,25 @@ Inspired by [D2SemiAutoFisher](https://github.com/Chadhendrixs/D2SemiAutoFisher)
     - Run `python -m destiny2autofishing -c 'path-to-configuration-file'` to start the script
       using configuration from a file located at `path-to-configuration-file`.
 
-The script can be terminated by pressing Enter after it is fully started.
-While script is running you can freely change keyboard layout,
-but you are forced to use English (USA) before its start.
-
 For more information and parameters run `python -m destiny2autofishing --help`.
 This command can be run without installed dependencies.
 
-Tips for PowerShell:
+### Termination
+
+The tool can be terminated by pressing Enter after it is fully started.
+While tool is running you can freely change keyboard layout,
+but you are forced to use English (USA) before its start.
+
+### Tips for PowerShell
 
 - Use ⬆ and ⬇ keys to search for history of commands.
 - If you have copied a command, you can paste it in single click of right mouse button.
-- Press `Ctrl+C` to terminate an executing command.
+- Press `Ctrl+C` to terminate any executing command.
+
+### Tips for Explorer
+
+- Hold Shift and press right mouse button on a file/directory and select `Copy as path`
+  to copy absolute path to this file/directory.
 
 ## Making custom configuration file
 
@@ -94,18 +124,15 @@ Later, I got the same results with the whole fishing script on Nessus with the p
    or higher version of Python 3.11.
 2. Clone this project.
 3. Open terminal and change current working directory to the root of this repository.
-4. Initialize virtual environment and activate it according to the
+4. Initialize virtual environment inside `.venv` directory and activate it according to the
    [tutorial](https://docs.python.org/3/library/venv.html).
-5. Run `python -m pip install -U pip setuptools wheel build` to install building tools.
+5. Run `python -m pip install -U pip setuptools wheel build pyinstaller` to install building tools.
 6. Run `python -m pip install -r requirements.txt` to install dependencies.
 
 ## Releasing new version
 
-1. Increase version according to [specification](https://peps.python.org/pep-0440/)
-   in `destiny2autofishing/__init__.py` and commit changes.
+1. Increase version in `destiny2autofishing/__init__.py`
+   according to the [specification](https://peps.python.org/pep-0440/) and commit changes.
 2. List all changes made in `changelog.md` and commit changes.
-3. Run `python -m build`.
-4. Delete tag `latest` on remote.
-5. Add tag with new version and tag `latest` on the very last commit.
-6. Push to remote.
-7. Create new release attaching `.whl` file created inside directory `dist`.
+3. Run `build.ps1` file.
+4. Create new release attaching `.whl` and `.zip` files created inside `.dist` directory.

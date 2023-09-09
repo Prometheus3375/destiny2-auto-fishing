@@ -111,14 +111,14 @@ class Config:
             self._parameters = load(f)
 
     @property
-    def path(self, /):
+    def path(self, /) -> str:
         """
         Path of this configuration file.
         """
         return self._path
 
     @property
-    def params(self, /):
+    def params(self, /) -> dict[str, Any]:
         """
         Parameters of this configuration file.
         """
