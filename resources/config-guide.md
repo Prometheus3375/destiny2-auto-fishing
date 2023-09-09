@@ -21,10 +21,13 @@ to achieve the same results.
    *Note*: you can copy any path listed in the sub-list above, paste inside Explorer address bar
    and press Enter to quickly navigate to these directories on your PC.
 2. Create somewhere an empty directory and open it in Explorer.
+   - If you are using executable edition of the tool, just open the directory with .exe file.
 3. Click on the address bar, erase everything there, type `powershell` and press Enter.
     - Alternatively, you can click `File -> Run Windows PowerShell -> Run Windows PowerShell`.
 4. Run `python -m destiny2autofishing -c .\config.toml`.
    This will generate a sample configuration file.
+   - Run `.\destiny2autofishing.exe .\config.toml` for executable edition of the tool.
+     Use the same command to start the tool with `config.toml` once it is completed.
 5. Open created configuration file with any text editor.
 6. Replace some present `???` in front of option names with respective values from below.
     - `method_name` - put `'image'`.
@@ -55,7 +58,7 @@ to achieve the same results.
 The configuration file is complete. You can use `python -m destiny2autofishing -c .\config.toml`
 command to run the script with it. If you want to start the script from anywhere,
 replace `.\config.toml` with the absolute path to this file:
-press `Shift + Mouse Right Button` on `config.toml` to view the extended context menu
+press `Shift + Right Mouse Button` on `config.toml` to view the extended context menu
 and click `Copy as path` to copy absolute path to the configuration file.
 
 If you find difficult to make configuration by your own, then create an issue in
@@ -82,6 +85,8 @@ because of library limitations; therefore, you need to set an alternative key in
 game settings and specify this key instead of the mouse button.
 
 ## Adjusting tolerance
+
+**Note**: this is available only if the tools is installed as a Python module.
 
 Tolerance value specifies how far the pixel values of a captured image can differ
 from the pixel values of the image at `key_image_path` to trigger fish catch.
