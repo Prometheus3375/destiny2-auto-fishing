@@ -115,17 +115,17 @@ def make_version_strings(
             )
 
 
-if __name__ == '__main__':
+def main():
     import destiny2autofishing
     from os.path import dirname, join
 
-    copyright = None
+    _copyright = None
     description = None
 
     with open('license.md') as f:
         for line in f:
             if line.startswith('Copyright'):
-                copyright = line.strip()
+                _copyright = line.strip()
                 break
 
     with open('setup.cfg') as f:
@@ -135,12 +135,19 @@ if __name__ == '__main__':
                 description = value.strip()
                 break
 
+    print(f'Found description: {description!r}')
+    print(f'Found copyright: {_copyright!r}')
+
     make_version_strings(
         join(dirname(__file__), 'version-info.py'),
         version=destiny2autofishing.version,
         creator='Prometheus3375',
         file_description=description,
-        legal_copyright=copyright,
+        legal_copyright=_copyright,
         original_filename=f'{destiny2autofishing.__name__}.exe',
         product_name='Destiny 2 Automatic Fishing',
         )
+
+
+if __name__ == '__main__':
+    main()
