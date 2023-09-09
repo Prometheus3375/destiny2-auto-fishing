@@ -14,6 +14,12 @@ Inspired by [D2SemiAutoFisher](https://github.com/Chadhendrixs/D2SemiAutoFisher)
 
 ## As an executable program
 
+**Important**: This tool does not have any malware or spyware.
+The executable is created via [PyInstaller](https://github.com/pyinstaller/pyinstaller);
+it can add code and libraries for which I am not responsible.
+
+**[VirusTotal score](https://www.virustotal.com/gui/file/277b2409fb13dab17e31b3ab0363a56d931b3e12a2b9b8af40465f8ea0e69b3b)**
+
 1. Open
    [the latest release](https://github.com/Prometheus3375/destiny2-auto-fishing/releases/latest).
 2. Download `destiny2autofishing.zip` from Assets.
