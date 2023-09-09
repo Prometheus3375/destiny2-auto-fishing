@@ -1,18 +1,17 @@
-$ThisDir = $PSScriptRoot
-$ThisDirName = Split-Path $ThisDir -Leaf
-$RootDir = Split-Path $ThisDir -Parent
+$ThisDirName = Split-Path $PSScriptRoot -Leaf
+$RootDir = Split-Path $PSScriptRoot -Parent
 $VenvDirName = ".venv"
 $DistDirName = ".dist"
 
-cd $RootDir
+Set-Location $RootDir
 & "$VenvDirName/Scripts/Activate.ps1"
 python -m "$ThisDirName.make_version_info"
-pyinstaller "$ThisDir/main.py" `
+pyinstaller "$PSScriptRoot/main.py" `
     --distpath $DistDirName `
-    --workpath "$ThisDir/.build" `
+    --workpath "$PSScriptRoot/.build" `
     --noconfirm `
     --clean `
-    --specpath $ThisDir `
+    --specpath $PSScriptRoot `
     --name destiny2autofishing `
     --paths . `
     --exclude-module destiny2autofishing.predefined `
@@ -27,6 +26,6 @@ pyinstaller "$ThisDir/main.py" `
     --version-file version-info.py `
     --onefile
 
-# todo get all files from destiny2autofishing/predefined
-#  create zip file, add there exe and predefined files to 'configs' directory
-#  can be done via python script
+python -m "$ThisDirName.make_zip" $DistDirName
+
+Write-Host "`nExecutable is build sucessfully`n"
