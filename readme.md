@@ -63,22 +63,24 @@ it can add code and libraries for which I am not responsible.
     - Run `python -m destiny2autofishing -c 'path-to-configuration-file'` to start the script
       using configuration from a file located at `path-to-configuration-file`.
 
-## Termination
+### Tips
 
-The tool can be terminated by pressing Enter after it is fully started.
-While tool is running you can freely change keyboard layout,
-but you are forced to use English (USA) before its start.
-
-## Tips for PowerShell
+#### PowerShell
 
 - Use ⬆ and ⬇ keys to search for history of commands.
 - If you have copied a command, you can paste it in single click of right mouse button.
 - Press `Ctrl+C` to terminate any executing command.
 
-## Tips for Explorer
+#### Explorer
 
 - Hold Shift and press right mouse button on a file/directory and select `Copy as path`
   to copy absolute path to this file/directory.
+
+## Termination
+
+The tool can be terminated by pressing Enter after it is fully started.
+While tool is running you can freely change keyboard layout,
+but you are forced to use English (USA) before its start.
 
 ## Making custom configuration file
 
