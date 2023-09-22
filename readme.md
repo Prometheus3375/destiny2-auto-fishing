@@ -37,7 +37,7 @@ it can add code and libraries for which I am not responsible.
 
 ## Running the tool
 
-While tool is running you can freely change keyboard layout,
+While the tool is running you can freely change keyboard layout,
 but you are forced to use English (USA) before its start.
 
 ### As an executable program

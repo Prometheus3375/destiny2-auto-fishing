@@ -9,7 +9,7 @@
   - Previously, this was true only for parameter `key_image_path` in section `fishing-method.image`.
 - Generated configuration files now specify this rule in the header.
 - Descriptions of path parameters for debug directories
-  now include that if passed paths does not exist they are created automatically.
+  now include that if passed paths do not exist they are created automatically.
 
 ## 1.1.0
 
