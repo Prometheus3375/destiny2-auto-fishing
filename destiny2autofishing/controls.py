@@ -1,6 +1,6 @@
 from time import sleep
 
-# noinspection PyProtectedMember
+# noinspection PyProtectedMember,PyUnresolvedReferences
 from pyautogui._pyautogui_win import _click, _keyDown, _keyUp, _mouseDown, _mouseUp, _position
 
 KEY_PRESS_DURATION = 0.2
