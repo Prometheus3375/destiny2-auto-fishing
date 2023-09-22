@@ -204,8 +204,12 @@ _config_header = f"""
 # An integer -- 0, 1, -1, etc.
 # A decimal -- 1.2, 1.3, etc.
 # A string -- 'anything here' or "anything here".
-# Any {CONFIG_PLACEHOLDER} must be replaced with a value of respective type.
+
+# Any {CONFIG_PLACEHOLDER} must be replaced with a value of the respective type.
 # Any optional parameter can be removed from this configuration.
+# Any parameter with "path" in its name should be either an absolute path
+# or a path relative to the directory where this configuration is stored.
+
 # Parameters up to the first square brackets
 # can be overwritten via arguments passed to the script.
 
