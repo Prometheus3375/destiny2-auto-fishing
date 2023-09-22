@@ -6,13 +6,14 @@ if __name__ == '__main__':
     import destiny2autofishing
     from destiny2autofishing import predefined
 
-    name = destiny2autofishing.__name__
+    exe_name = f'{destiny2autofishing.__name__}.exe'
+    zip_name = f'{destiny2autofishing.__name__}-{destiny2autofishing.version}.zip'
     predefined_dir = predefined.__path__[0]
     dist = sys.argv[1]
     config_dir = 'configs'
 
-    with ZipFile(f'{dist}/{name}.zip', 'w', ZIP_LZMA) as z:
-        z.write(f'{dist}/{name}.exe', f'{name}.exe')
+    with ZipFile(f'{dist}/{zip_name}', 'w', ZIP_LZMA) as z:
+        z.write(f'{dist}/{exe_name}', exe_name)
         z.mkdir(config_dir)
         for name in os.listdir(predefined_dir):
             if name.endswith(('.png', '.toml')):
