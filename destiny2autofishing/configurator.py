@@ -1,7 +1,7 @@
 from collections.abc import Callable
 from dataclasses import dataclass
 from inspect import Parameter, signature
-from os.path import abspath
+from os.path import abspath, dirname, isabs, join
 from tomllib import load
 from typing import Any, Self, final
 
@@ -109,6 +109,18 @@ class Config:
         self._path = abspath(path)
         with open(path, 'rb') as f:
             self._parameters = load(f)
+
+        # Update all path parameters.
+        # If path parameter is not empty and is not absolute,
+        # then it is assumed to be relative to the configuration file path.
+        config_dir = dirname(self._path)
+        sections = [self._parameters]
+        for section in sections:
+            for k, v in section.items():
+                if isinstance(v, dict):
+                    sections.append(v)
+                elif 'path' in k and v and not isabs(v):
+                    section[k] = join(config_dir, v)
 
     @property
     def path(self, /) -> str:
