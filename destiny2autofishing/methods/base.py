@@ -1,12 +1,11 @@
 import os
-from collections.abc import Iterator, Set
-from os.path import dirname, join
+from collections.abc import Iterator
 from time import sleep
 
 from ..anti_afk import AntiAFK
 from ..configurator import Config, ConfigParameter, Configurable
 from ..controls import *
-from ..functions import current_datetime_ms_str, current_datetime_str, locate_file
+from ..functions import current_datetime_ms_str, current_datetime_str
 
 
 class BaseMethod(Configurable, config_group='fishing-method'):
@@ -17,14 +16,6 @@ class BaseMethod(Configurable, config_group='fishing-method'):
     name: str
     """
     Name of the fishing method.
-    """
-
-    file_arguments: Set[str] = frozenset()
-    """
-    A set of arguments names which accept file paths.
-    It is used to try several possible file locations
-    before supplying these arguments to constructor
-    when creating a fishing method from a configuration file.
     """
 
     __name2cls: dict[str, type['BaseMethod']] = {}
@@ -193,19 +184,6 @@ class BaseMethod(Configurable, config_group='fishing-method'):
         method_name = kwargs.pop('method_name')
         kwargs |= kwargs.pop(method_name)
         cls = BaseMethod.__name2cls[method_name]
-        for arg in cls.file_arguments:
-            original_path = kwargs[arg]
-            config_dir_path = join(dirname(config.path), original_path)
-            located = locate_file(original_path, config_dir_path)
-            if located is None:
-                raise ValueError(
-                    f'cannot locate a file for parameter {arg!r} '
-                    f'of {method_name!r} fishing method; '
-                    f'tried locations: {original_path!r} and {config_dir_path!r}'
-                    )
-
-            kwargs[arg] = located
-
         return cls(**kwargs)
 
 
