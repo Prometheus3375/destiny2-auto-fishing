@@ -18,7 +18,7 @@ Inspired by [D2SemiAutoFisher](https://github.com/Chadhendrixs/D2SemiAutoFisher)
 The executable is created via [PyInstaller](https://github.com/pyinstaller/pyinstaller);
 it can add code and libraries for which I am not responsible.
 
-**[VirusTotal score](https://www.virustotal.com/gui/file/dfef31698a174430ee565a48ab295a9be4bafde73df0675b05b10a758b822d22)**
+[<b>VirusTotal score</b>](https://www.virustotal.com/gui/file/dfef31698a174430ee565a48ab295a9be4bafde73df0675b05b10a758b822d22)
 
 1. Open
    [the latest release](https://github.com/Prometheus3375/destiny2-auto-fishing/releases/latest).
