@@ -74,6 +74,7 @@ class BaseMethod(Configurable, config_group='fishing-method'):
         :param log_directory_path: Path to a directory where log files will be stored.
           Log file is used to write debug information; its name is the current date and time.
           Defaults to the empty string which means no log directory and no current log file.
+          If specified path does not exist, it is created automatically.
         """
         assert isinstance(interact_key, str) and interact_key
         assert isinstance(is_mouse_button, bool)
