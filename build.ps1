@@ -20,3 +20,5 @@ git tag $LatestTagName
 git tag $Version
 git push origin $LatestTagName
 git push origin $Version
+
+Write-Host "`Building sequences completed successfully`n"
