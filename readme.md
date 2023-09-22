@@ -37,6 +37,9 @@ it can add code and libraries for which I am not responsible.
 
 ## Running the tool
 
+While tool is running you can freely change keyboard layout,
+but you are forced to use English (USA) before its start.
+
 ### As an executable program
 
 1. Open directory where you have unpacked the archive, in Explorer.
@@ -78,9 +81,7 @@ it can add code and libraries for which I am not responsible.
 
 ## Termination
 
-The tool can be terminated by pressing Enter after it is fully started.
-While tool is running you can freely change keyboard layout,
-but you are forced to use English (USA) before its start.
+The tool can be terminated by pressing `Enter` after it is fully started.
 
 ## Making custom configuration file
 
