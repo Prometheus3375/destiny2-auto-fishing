@@ -18,7 +18,7 @@ Inspired by [D2SemiAutoFisher](https://github.com/Chadhendrixs/D2SemiAutoFisher)
 The executable is created via [PyInstaller](https://github.com/pyinstaller/pyinstaller);
 it can add code and libraries for which I am not responsible.
 
-**[VirusTotal score](https://www.virustotal.com/gui/file/277b2409fb13dab17e31b3ab0363a56d931b3e12a2b9b8af40465f8ea0e69b3b)**
+[<b>VirusTotal score</b>](https://www.virustotal.com/gui/file/095acdf63f660fce5219568c57ec341cf3067d75320e9e1df27eeef090d59944)
 
 1. Open
    [the latest release](https://github.com/Prometheus3375/destiny2-auto-fishing/releases/latest).
@@ -36,6 +36,9 @@ it can add code and libraries for which I am not responsible.
 # Usage
 
 ## Running the tool
+
+While the tool is running you can freely change keyboard layout,
+but you are forced to use English (USA) before its start.
 
 ### As an executable program
 
@@ -78,9 +81,7 @@ it can add code and libraries for which I am not responsible.
 
 ## Termination
 
-The tool can be terminated by pressing Enter after it is fully started.
-While tool is running you can freely change keyboard layout,
-but you are forced to use English (USA) before its start.
+The tool can be terminated by pressing `Enter` after it is fully started.
 
 ## Making custom configuration file
 

@@ -17,8 +17,6 @@ class ImageMethod(BaseMethod, name='image'):
     """
     __slots__ = 'key_matrix', 'tolerance', 'bbox', 'screen_grap_period', 'image_debug_path'
 
-    file_arguments = {'key_image_path'}
-
     def __init__(
             self,
             /,
@@ -48,6 +46,7 @@ class ImageMethod(BaseMethod, name='image'):
         :param image_debug_path: Path to a directory where captured images are stored for debug.
           Images are saved only after catching a fish.
           Defaults to the empty string which means no debug directory.
+          If specified path does not exist, it is created automatically.
 
         Any additionally passed keyword arguments are passed to :class:`BaseMethod` constructor.
         """

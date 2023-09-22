@@ -1,7 +1,7 @@
 from collections.abc import Callable
 from dataclasses import dataclass
 from inspect import Parameter, signature
-from os.path import abspath
+from os.path import abspath, dirname, isabs, join
 from tomllib import load
 from typing import Any, Self, final
 
@@ -110,6 +110,18 @@ class Config:
         with open(path, 'rb') as f:
             self._parameters = load(f)
 
+        # Update all path parameters.
+        # If path parameter is not empty and is not absolute,
+        # then it is assumed to be relative to the configuration file path.
+        config_dir = dirname(self._path)
+        sections = [self._parameters]
+        for section in sections:
+            for k, v in section.items():
+                if isinstance(v, dict):
+                    sections.append(v)
+                elif 'path' in k and v and not isabs(v):
+                    section[k] = join(config_dir, v)
+
     @property
     def path(self, /) -> str:
         """
@@ -192,8 +204,12 @@ _config_header = f"""
 # An integer -- 0, 1, -1, etc.
 # A decimal -- 1.2, 1.3, etc.
 # A string -- 'anything here' or "anything here".
-# Any {CONFIG_PLACEHOLDER} must be replaced with a value of respective type.
+
+# Any {CONFIG_PLACEHOLDER} must be replaced with a value of the respective type.
 # Any optional parameter can be removed from this configuration.
+# Any parameter with "path" in its name should be either an absolute path
+# or a path relative to the directory where this configuration is stored.
+
 # Parameters up to the first square brackets
 # can be overwritten via arguments passed to the script.
 
