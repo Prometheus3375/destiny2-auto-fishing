@@ -7,7 +7,7 @@
 - Now **all** path parameters must have either an absolute path
   or a path relative to the directory where a configuration file is stored.
   - Previously, this was true only for parameter `key_image_path` in section `fishing-method.image`.
-- Generated configuration files now specify this rule in the header.
+  - Generated configuration files now specify this rule in the header.
 - Descriptions of path parameters for debug directories
   now include that if passed paths do not exist they are created automatically.
 
