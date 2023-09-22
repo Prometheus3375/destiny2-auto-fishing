@@ -135,6 +135,7 @@ def main():
                 description = value.strip()
                 break
 
+    print(f'Found version: {destiny2autofishing.version!r}')
     print(f'Found description: {description!r}')
     print(f'Found copyright: {_copyright!r}')
 
